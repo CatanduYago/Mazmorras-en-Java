@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dungeonmvc.controllers.MainViewController">
+   <children>
+      <Pane fx:id="boardPane" prefHeight="540.0" prefWidth="650.0" />
+      <VBox prefHeight="540.0" prefWidth="310.0">
+         <children>
+            <Pane fx:id="playerPane" prefHeight="348.0" prefWidth="310.0" />
+            <Pane fx:id="inventoryPane" prefHeight="141.0" prefWidth="310.0" />
+            <Pane prefHeight="96.0" prefWidth="310.0">
+               <children>
+                  <Button fx:id="restartButton" focusTraversable="false" layoutX="96.0" layoutY="19.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="118.0" text="Restart" />
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </children>
+</HBox>
