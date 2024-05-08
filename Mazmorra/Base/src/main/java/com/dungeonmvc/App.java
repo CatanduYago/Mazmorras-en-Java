@@ -17,7 +17,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        stage.setResizable(false);
+        stage.setResizable(true);
         GameManager gm = GameManager.getInstance();
         gm.testGame();
         scene = new Scene(loadFXML("mainView"));

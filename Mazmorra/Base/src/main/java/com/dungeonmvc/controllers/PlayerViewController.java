@@ -13,19 +13,12 @@ import javafx.scene.image.ImageView;
 public class PlayerViewController implements Observer{
     @FXML
     ImageView portrait;
-    @FXML
     Label nameTag;
-    @FXML
     Label maxHealthTag;
-    @FXML 
     Label currentHealthTag;
-    @FXML
     Label strenghtTag;
-    @FXML
     Label defenseTag;
-    @FXML
     ImageView leftWeapongImg;
-    @FXML
     ImageView rightWeaponImg;
 
     Player player;

@@ -35,7 +35,7 @@ public class Player {
     }
 
     public void notifyObservers(){
-        observers.forEach(x -> x.onChange());
+        observers.forEach(x -> x.onChange());   
     }
 
     public String getPortrait() {
