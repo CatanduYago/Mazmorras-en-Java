@@ -59,16 +59,16 @@ public class MainViewController {
 
         boardPane.setOnKeyPressed(event -> {
             Direction direction = null;
-            if (event.getCode() == KeyCode.UP) {
+            if (event.getCode() == KeyCode.W) {
                 System.out.println("Tecla arriba presionada");
                 direction = Direction.UP;
-            } else if (event.getCode() == KeyCode.DOWN) {
+            } else if (event.getCode() == KeyCode.S) {
                 System.out.println("Tecla abajo presionada");
                 direction = Direction.DOWN;
-            } else if (event.getCode() == KeyCode.LEFT) {
+            } else if (event.getCode() == KeyCode.A) {
                 System.out.println("Tecla izquierda presionada");
                 direction = Direction.LEFT;
-            } else if (event.getCode() == KeyCode.RIGHT) {
+            } else if (event.getCode() == KeyCode.D) {
                 System.out.println("Tecla derecha presionada");
                 direction = Direction.RIGHT;
             }

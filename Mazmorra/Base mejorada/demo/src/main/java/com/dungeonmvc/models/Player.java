@@ -5,24 +5,20 @@ import java.util.ArrayList;
 import com.dungeonmvc.interfaces.Observer;
 import com.dungeonmvc.utils.Vector2;
 
-public class Player {
+public class Player extends Character{
     ArrayList<Observer> observers;
 
+    
     String portrait;
     String image;
-    String name;
-    Double health;
-    Double AD;
     Double AP;
-    Double defense;
-    Double speed;
-    Double perception;
     String leftHand;
     String rightHand;
     Vector2 position;
     Inventory inventory;
 
     public Player(String portrait, String image, String name, Double health, Double AD, Double AP, Double defense, Double speed, Double perception, String leftHand, String rightHand, Vector2 start) {
+        super(name, health, AD, defense, speed, perception);
         observers = new ArrayList<>();
         this.portrait = portrait;
         this.image = image;
@@ -38,6 +34,7 @@ public class Player {
         this.position = start;
         this.inventory = new Inventory();
     }
+    
 
     public void suscribe(Observer observer) {
         observers.add(observer);
@@ -168,38 +165,5 @@ public class Player {
     public void setPosition(Vector2 position) {
         this.position = position;
         // notifyObservers();
-    }
-
-    public void PickupObjects() {
-
-        ArrayList<GameObject> objectsToPickUp = getCurrentPositionObjects();
-        if (!objectsToPickUp.isEmpty()) {
-
-        for (GameObject object : objectsToPickUp) {
-                inventory.addObject(object);
-        }
-        updatePlayerAttributes(objectsToPickUp);
-        notifyObservers();
-        }
-    }
-
-    public void hit() {
-        // TODO: Implement the logic for hitting
-        ArrayList<GameObject> objectsToHit = getCurrentPositionObjects();
-        if (!objectsToHit.isEmpty()) {
-            for (GameObject object : objectsToHit) {
-            if (object instanceof Enemy) {
-                Enemy enemy = (Enemy) object;
-                enemy.takeDamage(this.AD);
-            } else {
-                object.takeDamage(this.AD);
-            }
-            }
-            notifyObservers();
-        }
-    }
-
-    public void interact() {
-        // TODO: Implement the logic for interacting
     }
 }

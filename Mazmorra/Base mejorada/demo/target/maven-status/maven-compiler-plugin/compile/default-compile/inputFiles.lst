@@ -1,6 +1,8 @@
 c:\Users\daw1\Documents\Mazmorras-en-Java\Mazmorra\Base mejorada\demo\src\main\java\com\dungeonmvc\models\Player.java
 c:\Users\daw1\Documents\Mazmorras-en-Java\Mazmorra\Base mejorada\demo\src\main\java\com\dungeonmvc\controllers\MainViewController.java
 c:\Users\daw1\Documents\Mazmorras-en-Java\Mazmorra\Base mejorada\demo\src\main\java\com\dungeonmvc\utils\Vector2.java
+c:\Users\daw1\Documents\Mazmorras-en-Java\Mazmorra\Base mejorada\demo\src\main\java\com\dungeonmvc\models\Character.java
+c:\Users\daw1\Documents\Mazmorras-en-Java\Mazmorra\Base mejorada\demo\src\main\java\com\dungeonmvc\models\Enemy.java
 c:\Users\daw1\Documents\Mazmorras-en-Java\Mazmorra\Base mejorada\demo\src\main\java\com\dungeonmvc\controllers\BoardViewController.java
 c:\Users\daw1\Documents\Mazmorras-en-Java\Mazmorra\Base mejorada\demo\src\main\java\com\dungeonmvc\controllers\PlayerViewController.java
 c:\Users\daw1\Documents\Mazmorras-en-Java\Mazmorra\Base mejorada\demo\src\main\java\com\dungeonmvc\models\Board.java
@@ -11,5 +13,6 @@ c:\Users\daw1\Documents\Mazmorras-en-Java\Mazmorra\Base mejorada\demo\src\main\j
 c:\Users\daw1\Documents\Mazmorras-en-Java\Mazmorra\Base mejorada\demo\src\main\java\com\dungeonmvc\utils\Vector2Double.java
 c:\Users\daw1\Documents\Mazmorras-en-Java\Mazmorra\Base mejorada\demo\src\main\java\com\dungeonmvc\interfaces\Observer.java
 c:\Users\daw1\Documents\Mazmorras-en-Java\Mazmorra\Base mejorada\demo\src\main\java\com\dungeonmvc\controllers\InventoryViewController.java
+c:\Users\daw1\Documents\Mazmorras-en-Java\Mazmorra\Base mejorada\demo\src\main\java\com\dungeonmvc\models\NPC.java
 c:\Users\daw1\Documents\Mazmorras-en-Java\Mazmorra\Base mejorada\demo\src\main\java\com\dungeonmvc\App.java
 c:\Users\daw1\Documents\Mazmorras-en-Java\Mazmorra\Base mejorada\demo\src\main\java\com\dungeonmvc\models\Cell.java
