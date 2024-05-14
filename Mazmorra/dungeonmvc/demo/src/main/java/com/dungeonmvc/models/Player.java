@@ -5,13 +5,12 @@ import java.util.ArrayList;
 import com.dungeonmvc.interfaces.Observer;
 import com.dungeonmvc.utils.Vector2;
 
-public class Player extends Character{
+public class Player {
     ArrayList<Observer> observers;
 
-    
     String portrait;
     String image;
-    Double AP;
+    String name;
     String leftHand;
     String rightHand;
     Vector2 position;
@@ -34,17 +33,16 @@ public class Player extends Character{
         this.position = start;
         this.inventory = new Inventory();
     }
-    
 
-    public void suscribe(Observer observer) {
+    public void suscribe(Observer observer){
         observers.add(observer);
     }
 
-    public void unsuscribe(Observer observer) {
+    public void unsuscribe(Observer observer){
         observers.remove(observer);
     }
 
-    public void notifyObservers() {
+    public void notifyObservers(){
         observers.forEach(x -> x.onChange());
     }
 
@@ -74,60 +72,6 @@ public class Player extends Character{
         notifyObservers();
     }
 
-    public Double gethealth() {
-        return this.health;
-    }
-
-    public void sethealth(Double health) {
-        this.health = health;
-        notifyObservers();
-    }
-
-    public Double getAD() {
-        return this.AD;
-    }
-
-    public void setAD(Double AD) {
-        this.AD = AD;
-        notifyObservers();
-    }
-
-    public Double getAP() {
-        return this.AP;
-    }
-
-    public void setAP(Double AP) {
-        this.AP = AP;
-        notifyObservers();
-    }
-
-    public Double getDefense() {
-        return this.defense;
-    }
-
-    public void setDefense(Double defense) {
-        this.defense = defense;
-        notifyObservers();
-    }
-
-    public Double getSpeed() {
-        return this.speed;
-    }
-
-    public void setSpeed(Double speed) {
-        this.speed = speed;
-        notifyObservers();
-    }
-
-    public Double getPerception() {
-        return this.perception;
-    }
-
-    public void setPerception(Double perception) {
-        this.perception = perception;
-        notifyObservers();
-    }
-
     public String getLeftHand() {
         return this.leftHand;
     }
@@ -146,7 +90,7 @@ public class Player extends Character{
         notifyObservers();
     }
 
-    public Inventory getInventory() {
+    public Inventory getInventory(){
         return this.inventory;
     }
 
@@ -154,16 +98,16 @@ public class Player extends Character{
         return this.position;
     }
 
-    public int getX() {
+    public int getX(){
         return this.position.getX();
     }
 
-    public int getY() {
+    public int getY(){
         return this.position.getY();
     }
 
     public void setPosition(Vector2 position) {
         this.position = position;
-        // notifyObservers();
+        //notifyObservers();
     }
 }

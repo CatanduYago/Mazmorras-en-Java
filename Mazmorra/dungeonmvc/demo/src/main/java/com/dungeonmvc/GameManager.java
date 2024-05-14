@@ -32,11 +32,11 @@ public class GameManager {
 
     public void newTurn(Direction direction){
         board.move(player, direction);
-     
     }
 
     public void testGame(){
-        this.player = new Player("portrait", "paladin", "Ardisnto", 5.0, 1.3, 0.0, 2.0, 1.0, 1.0, "item7", "item6", new Vector2(0, 0));        player.getInventory().addItem("item1");
+        player = new Player("portrait", "paladin", "Ardisnto", 5.0, 1.3, 0.0, 2.0, 1.0, 1.0, "item7", "item6", new Vector2(0, 0));
+        player.getInventory().addItem("item1");
         player.getInventory().addItem("item2");
         player.getInventory().addItem("item3");
         player.getInventory().addItem("item4");

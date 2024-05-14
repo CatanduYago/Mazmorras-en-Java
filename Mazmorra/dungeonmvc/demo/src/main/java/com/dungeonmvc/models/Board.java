@@ -17,13 +17,11 @@ public class Board{
     private Cell board[][];
     private String floorImage;
     private String wallImage;
-    private String element;
     private Player player;  //PROVISIONAL, tener las referencias de todos los elementos interactivos
 
     public Board(int size, String floorImage, String wallImage) {
         this.size = size;
         this.board = new Cell[size][size];
-        this.element = element;
         this.floorImage = floorImage;
         this.wallImage = wallImage;
 
@@ -49,12 +47,6 @@ public class Board{
 
     public void setSize(int size) {
         this.size = size;
-    }
-    public String getDecoration() {
-        return this.element;
-    }
-    public void setDecoration(String element) {
-        this.element = element;
     }
 
     public String getFloorImage() {

@@ -54,7 +54,7 @@ public class BoardViewController implements Observer{
                     boardImg.setImage(new Image(App.class.getResource("images/"+board.getWallImage()+".png").toExternalForm(),cellSize,cellSize,true,false));
                 }
 
-                grid.add(boardImg, row, col);
+                grid.add(boardImg, col, row);
             }
         }
 
