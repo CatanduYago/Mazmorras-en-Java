@@ -3,22 +3,25 @@ package com.dungeonmvc.models;
 import java.util.ArrayList;
 
 import com.dungeonmvc.interfaces.Observer;
+import com.dungeonmvc.interfaces.Interactive;
 import com.dungeonmvc.utils.Vector2;
 
-public class Player {
+public class Player extends Entities implements Interactive{
     ArrayList<Observer> observers;
-
-    String portrait;
+    
     String image;
     String name;
+    String portrait;
+    Double perception;
     String leftHand;
     String rightHand;
     Vector2 position;
     Inventory inventory;
 
     public Player(String portrait, String image, String name, Double health, Double AD, Double AP, Double defense, Double speed, Double perception, String leftHand, String rightHand, Vector2 start) {
-        super(name, health, AD, defense, speed, perception);
+        super(health, AD, AP, defense, speed);
         observers = new ArrayList<>();
+
         this.portrait = portrait;
         this.image = image;
         this.name = name;
@@ -109,5 +112,16 @@ public class Player {
     public void setPosition(Vector2 position) {
         this.position = position;
         //notifyObservers();
+    }
+
+    @Override
+    public void interactive() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'interactive'");
+    }
+
+    public void interactive(String... args) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'interactive'");
     }
 }

@@ -35,7 +35,7 @@ public class GameManager {
     }
 
     public void testGame(){
-        player = new Player("portrait", "paladin", "Ardisnto", 5.0, 1.3, 0.0, 2.0, 1.0, 1.0, "item7", "item6", new Vector2(0, 0));
+        player = new Player("portrait", "player", "Paladin", 5.0,1.3,0.0,1.0,1.0,1.0, "item7", "item6", new Vector2(0, 0));
         player.getInventory().addItem("item1");
         player.getInventory().addItem("item2");
         player.getInventory().addItem("item3");
@@ -59,7 +59,7 @@ public class GameManager {
             {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true},
             {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
         };
-        board = new Board(boardMatrix.length,"floor","wall");
+        board = new Board(boardMatrix.length,"floor","wall", "door");
         for (int i = 0; i < boardMatrix.length; i++) {
             for (int j=0;j < boardMatrix[0].length;j++){
                 board.newCell(new Vector2(i, j), boardMatrix[i][j]);

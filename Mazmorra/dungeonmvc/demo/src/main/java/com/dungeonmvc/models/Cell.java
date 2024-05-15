@@ -1,22 +1,31 @@
-package com.dungeonmvc.models;
+    package com.dungeonmvc.models;
+
+import com.dungeonmvc.interfaces.Interactive;
 
 public class Cell {
-    private boolean isFloor;
+        boolean isFloor;
+        Interactive interactor;
 
-    public Cell(boolean isFloor) {
-        this.isFloor = isFloor;
+        public Cell(boolean isFloor) {
+            this.isFloor = isFloor;
+            this.interactor = interactor;
+        }
+
+        public boolean isIsFloor() {
+            return this.isFloor;
+        }
+
+        public boolean getIsFloor() {
+            return this.isFloor;
+        }
+
+        public void setIsFloor(boolean isFloor) {
+            this.isFloor = isFloor;
+        }
+
+        
     }
 
-    public boolean isIsFloor() {
-        return this.isFloor;
-    }
 
-    public boolean getIsFloor() {
-        return this.isFloor;
-    }
 
-    public void setIsFloor(boolean isFloor) {
-        this.isFloor = isFloor;
-    }
 
-}
