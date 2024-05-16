@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 
-
-<Pane fx:id="pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dungeonmvc.controllers.BoardViewController">
+<Pane fx:id="pane"
+   xmlns="http://javafx.com/javafx/8"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dungeonmvc.controllers.BoardViewController">
    <children>
-      <GridPane fx:id="grid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
-</GridPane>
+      <GridPane fx:id="grid" maxHeight="400.0" maxWidth="400.0" minHeight="200.0" minWidth="200.0">
+      </GridPane>
    </children>
 </Pane>

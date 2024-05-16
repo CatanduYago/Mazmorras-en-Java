@@ -8,17 +8,22 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-/**
- * JavaFX App
- */
+import com.dungeonmvc.models.Boss;
+import com.dungeonmvc.models.Item;
+
 public class App extends Application {
 
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
-        
+        setupScene(stage);
+        showStage(stage);
+    }
+
+    private void setupScene(Stage stage) throws IOException {
         stage.setResizable(false);
         GameManager gm = GameManager.getInstance();
         gm.testGame();
@@ -26,6 +31,16 @@ public class App extends Application {
         stage.setScene(scene);
         stage.setTitle("Java y mazmorras");
         stage.getIcons().add(new Image(App.class.getResource("images/logo.png").toExternalForm()));
+            Boss boss = new Boss("Ecutron", "boss.png", 100.0, 10.0, 0.0, 5.0, 1.0, 1.0);
+        boss.addItem(new Item("Escultura maldita", "escultura.png", 10.0, 3.0, 0.0, 0.0, 0.0));
+        boss.addItem(new Item("Espada maldita", "espada.png", 0.0, 5.0, 0.0, 0.0, 0.0));
+        boss.addItem(new Item("Armadura de Río", "armadura.png", 50.0, 0.0, 0.0, 20.0, 0.0));
+        boss.addItem(new Item("Poción de Salud", "pocion.png", 25.0, 0.0, 0.0, 0.0, 0.0));
+
+        ArrayList<Item> droppedItems = boss.dropItems();
+    }
+
+    private void showStage(Stage stage) {
         stage.show();
     }
 
@@ -41,5 +56,4 @@ public class App extends Application {
     public static void main(String[] args) {
         launch();
     }
-
 }

@@ -2,4 +2,18 @@
 ✔ Interfaz interactive @done (5/15/2024, 5:18:21 PM)
 ✔ Implementar interfaz en personajes @done (5/15/2024, 5:20:39 PM)
 ✔ ñadir atributo interactuable en las casillas @done (5/15/2024, 6:05:12 PM)
-☐ implementar las puertas en el tablero
+
+✔ Implementar BOss y su Herencia @low @done (5/16/2024, 5:19:19 PM)
+☐ Crear la historia @low
+☐ Crear objetos (artefactos, consumibles y equipables) @high
+☐ añadir atributo interactuable a los objetos @high
+☐ Crear Habilidades @high 
+☐ Crear Resistencias @high
+☐ Crear la interfaz de la historia @high
+☐ Crear pathfinding algorithm @critical 
+☐ Crear generacion de terreno @critical 
+☐ Crear fog of war @critical 
+☐ Implementar cofres y enemigos en el tablero @critical 
+☐ Hacer spray del enemigo, cofre, items, etc @critical 
+☐ implementar las puertas en el tablero @critical 
+

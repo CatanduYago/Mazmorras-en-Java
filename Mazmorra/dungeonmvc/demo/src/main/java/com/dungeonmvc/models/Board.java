@@ -1,12 +1,10 @@
 package com.dungeonmvc.models;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.dungeonmvc.GameManager;
 import com.dungeonmvc.interfaces.Observer;
 import com.dungeonmvc.utils.Vector2;
-import com.dungeonmvc.interfaces.Interactive;
 
 public class Board {
     private ArrayList<Observer> observers;
@@ -20,17 +18,23 @@ public class Board {
     private String floorImage;
     private String wallImage;
     private String doorImage;
-    private Player player; // PROVISIONAL, tener las referencias de todos los elementos interactivos
+    private Player player;
 
     public Board(int size, String floorImage, String wallImage, String doorImage) {
         this.size = size;
         this.board = new Cell[size][size];
         this.floorImage = floorImage;
         this.wallImage = wallImage;
-        this.floorImage = floorImage;
-
-        this.player = GameManager.getInstance().getPlayer(); // PROVISIONAL
+        this.doorImage = doorImage;
+        this.player = GameManager.getInstance().getPlayer();
         observers = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                boolean isFloor = true; 
+                newCell(new Vector2(i, j), isFloor);
+            }
+        }
     }
 
     public void suscribe(Observer observer) {
@@ -68,9 +72,11 @@ public class Board {
     public void setWallImage(String wallImage) {
         this.wallImage = wallImage;
     }
+
     public String getDoorImage() {
         return this.doorImage;
     }
+
     public void setDoorImage(String doorImage) {
         this.doorImage = doorImage;
     }

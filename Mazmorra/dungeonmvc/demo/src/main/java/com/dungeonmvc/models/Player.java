@@ -1,6 +1,7 @@
 package com.dungeonmvc.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.dungeonmvc.interfaces.Observer;
 import com.dungeonmvc.interfaces.Interactive;
@@ -17,6 +18,8 @@ public class Player extends Entities implements Interactive{
     String rightHand;
     Vector2 position;
     Inventory inventory;
+    ArrayList resistencias;
+
 
     public Player(String portrait, String image, String name, Double health, Double AD, Double AP, Double defense, Double speed, Double perception, String leftHand, String rightHand, Vector2 start) {
         super(health, AD, AP, defense, speed);
@@ -35,6 +38,7 @@ public class Player extends Entities implements Interactive{
         this.rightHand = rightHand;
         this.position = start;
         this.inventory = new Inventory();
+        this.resistencias = new ArrayList<>();
     }
 
     public void suscribe(Observer observer){
@@ -96,6 +100,7 @@ public class Player extends Entities implements Interactive{
     public Inventory getInventory(){
         return this.inventory;
     }
+
 
     public Vector2 getPosition() {
         return this.position;
