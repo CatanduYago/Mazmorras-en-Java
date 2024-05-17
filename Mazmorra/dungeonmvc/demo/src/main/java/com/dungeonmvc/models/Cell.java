@@ -9,8 +9,10 @@ public class Cell {
 
     public Cell(boolean isFloor) {
         this.isFloor = isFloor;
+        this.hasDoor = false; 
         this.interactor = null; 
     }
+    
 
     public boolean getIsFloor() {
         return isFloor;
