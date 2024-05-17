@@ -42,33 +42,27 @@ public class GameManager {
         player.getInventory().addItem("item4");
         player.getInventory().addItem("item5");
 
-        int[][] boardMatrix = {
-                { 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  },
-                { 0, 1, 2, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0  },
-                { 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 2, 0, 1, 2, 0  },
-                { 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0  },
-                { 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0  },
-                { 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0  },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  },
-                { 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0  },
-                { 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0  },
-                { 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0  },
-                { 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0  },
-                { 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0  },
-                { 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  },
-                { 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  },
-                { 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  },
-                { 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  },
-                { 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  }
+        boolean[][] boardMatrix = {
+            {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true},
+            {true, false, false, false, true, false, false, false, false, false, false, false, false, false, true},
+            {true, false, true, false, true, false, true, true, true, true, true, true, false, true, true},
+            {true, false, true, false, true, false, false, false, false, false, false, false, false, false, true},
+            {true, false, true, false, true, false, true, true, true, true, true, true, false, true, true},
+            {true, false, false, false, true, false, false, false, false, false, false, false, false, false, true},
+            {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true},
+            {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true},
+            {true, false, false, false, true, false, false, false, false, false, false, false, false, false, true},
+            {true, false, true, false, true, false, true, true, true, true, true, true, false, true, true},
+            {true, false, true, false, true, false, false, false, false, false, false, false, false, false, true},
+            {true, false, true, false, true, false, true, true, true, true, true, true, false, true, true},
+            {true, false, false, false, true, false, false, false, false, false, false, false, false, false, true},
+            {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true},
+            {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
         };
-
-        board = new Board(boardMatrix.length, "floor.png", "wall.png", "door.png");
-
+        board = new Board(boardMatrix.length,"floor","wall", "door");
         for (int i = 0; i < boardMatrix.length; i++) {
-            for (int j = 0; j < boardMatrix[0].length; j++) {
-                int cellType = boardMatrix[i][j];
-                board.newCell(new Vector2(j, i), cellType);
+            for (int j=0;j < boardMatrix[0].length;j++){
+                board.newCell(new Vector2(i, j), boardMatrix[i][j]);
             }
         }
     }

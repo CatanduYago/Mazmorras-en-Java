@@ -28,11 +28,7 @@ public class Board {
         this.doorImage = doorImage;
         this.player = GameManager.getInstance().getPlayer();
         observers = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                newCell(new Vector2(i, j), 0); 
-            }
-        }
+
     }
 
     public void suscribe(Observer observer) {
@@ -104,12 +100,9 @@ public class Board {
     }
     public Cell getCell(Vector2 position) {
         return board[position.getX()][position.getY()];
-    }
-    public void newCell(Vector2 position, int cellType) {
-        boolean isFloor = cellType == 1;
-        boolean hasDoor = cellType == 2;
+    } 
+    public void newCell(Vector2 position, boolean isFloor){
         Cell cell = new Cell(isFloor);
-        cell.setHasDoor(hasDoor);
         board[position.getX()][position.getY()] = cell;
     }
     
