@@ -6,6 +6,7 @@
 ✔ Implementar BOss y su Herencia @low @done (5/16/2024, 5:19:19 PM)
 ☐ Crear la historia @low
 ☐ Crear objetos (artefactos, consumibles y equipables) @high
+✔ cambio de items del inventario ala mano @high @done (5/20/2024, 5:12:06 PM)
 ☐ añadir atributo interactuable a los objetos @high
 ☐ Crear Habilidades @high 
 ☐ Crear Resistencias @high
@@ -16,5 +17,5 @@
 ☐ Implementar cofres y enemigos en el tablero @critical 
 ☐ Hacer spray del enemigo, cofre, items, etc @critical 
 ☐ implementar las puertas en el tablero @critical
-☐ mirar lo del jugador en el tablero @critical 
+✔ mirar lo del jugador en el tablero @critical @done (5/20/2024, 5:11:30 PM)
 

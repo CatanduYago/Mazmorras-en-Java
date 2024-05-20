@@ -59,8 +59,6 @@ public class BoardViewController implements Observer{
         }
 
 
-
-
         playerImg = new ImageView();
         playerImg.setFitWidth(cellSize);
         playerImg.setFitHeight(cellSize);

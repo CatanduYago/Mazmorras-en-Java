@@ -49,10 +49,10 @@ public class PlayerViewController implements Observer{
     @Override
     public void onChange() {
         nameTag.setText(player.getName());
-        //leftWeapongImg.setImage(new Image(App.class.getResource("images/"+player.getLeftHand()+".png").toExternalForm()));
-        //rightWeaponImg.setImage(new Image(App.class.getResource("images/"+player.getRightHand()+".png").toExternalForm()));
-    }
+        leftWeaponImg.setImage(new Image(App.class.getResource("images/"+player.getLeftHand()+".png").toExternalForm(),leftWeaponImg.getFitWidth(),leftWeaponImg.getFitHeight(),true,false));
+        rightWeaponImg.setImage(new Image(App.class.getResource("images/"+player.getRightHand()+".png").toExternalForm(),rightWeaponImg.getFitWidth(),rightWeaponImg.getFitHeight(),true,false));
 
+    }
 
     @Override
     public void onChange(String... args) {

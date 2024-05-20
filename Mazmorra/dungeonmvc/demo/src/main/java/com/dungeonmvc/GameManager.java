@@ -10,9 +10,7 @@ public class GameManager {
     Player player;
     Board board;
 
-    private GameManager() {
-
-    }
+    private GameManager() {}
 
     public static GameManager getInstance() {
         if (instance == null) {
@@ -41,6 +39,7 @@ public class GameManager {
         player.getInventory().addItem("item3");
         player.getInventory().addItem("item4");
         player.getInventory().addItem("item5");
+        player.getInventory().addItem("item8");
 
         boolean[][] boardMatrix = {
             {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true},
@@ -59,10 +58,13 @@ public class GameManager {
             {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true},
             {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}
         };
-        board = new Board(boardMatrix.length,"floor","wall", "door");
+
+        board = new Board(boardMatrix.length, "floor", "wall", "door");
         for (int i = 0; i < boardMatrix.length; i++) {
-            for (int j=0;j < boardMatrix[0].length;j++){
-                board.newCell(new Vector2(i, j), boardMatrix[i][j]);
+            for (int j = 0; j < boardMatrix[0].length; j++) {
+                boolean isFloor = boardMatrix[i][j];
+                boolean isDoor = (i == 1 && j == 4) || (i == 4 && j == 8);  
+                board.newCell(new Vector2(i, j), isFloor, isDoor);
             }
         }
     }

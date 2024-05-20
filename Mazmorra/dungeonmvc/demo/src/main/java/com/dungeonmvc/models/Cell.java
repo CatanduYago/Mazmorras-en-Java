@@ -4,30 +4,28 @@ import com.dungeonmvc.interfaces.Interactive;
 
 public class Cell {
     private boolean isFloor;
-    private boolean hasDoor;
+    private boolean isDoor;
     private Interactive interactor;
-
     public Cell(boolean isFloor) {
         this.isFloor = isFloor;
-        this.hasDoor = false; 
-        this.interactor = null; 
+        this.isDoor = false;
     }
-    
+
+    public Cell(boolean isFloor, boolean isDoor) {
+        this.isFloor = isFloor;
+        this.isDoor = isDoor;
+    }
 
     public boolean getIsFloor() {
         return isFloor;
     }
 
-    public void setIsFloor(boolean isFloor) {
-        this.isFloor = isFloor;
+    public boolean getIsDoor() {
+        return isDoor;
     }
 
-    public boolean hasDoor() {
-        return hasDoor;
-    }
-
-    public void setHasDoor(boolean hasDoor) {
-        this.hasDoor = hasDoor;
+    public void setDoor(boolean isDoor) {
+        this.isDoor = isDoor;
     }
 
     public Interactive getInteractor() {

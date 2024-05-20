@@ -1,7 +1,6 @@
 package com.dungeonmvc.models;
 
 import java.util.ArrayList;
-
 import com.dungeonmvc.GameManager;
 import com.dungeonmvc.interfaces.Observer;
 import com.dungeonmvc.utils.Vector2;
@@ -28,7 +27,6 @@ public class Board {
         this.doorImage = doorImage;
         this.player = GameManager.getInstance().getPlayer();
         observers = new ArrayList<>();
-
     }
 
     public void suscribe(Observer observer) {
@@ -98,19 +96,26 @@ public class Board {
     public void setPlayer(Player player) {
         this.player = player;
     }
+
     public Cell getCell(Vector2 position) {
         return board[position.getX()][position.getY()];
     } 
+
     public void newCell(Vector2 position, boolean isFloor){
         Cell cell = new Cell(isFloor);
         board[position.getX()][position.getY()] = cell;
     }
-    
+
+    public void newCell(Vector2 position, boolean isFloor, boolean isDoor){
+        Cell cell = new Cell(isFloor, isDoor);
+        board[position.getX()][position.getY()] = cell;
+    }
 
     public void move(Player player, Direction direction) {
         Vector2 destino = getDestination(player.position, direction);
         if (destino.getX() >= 0 && destino.getX() < size && destino.getY() >= 0 && destino.getY() < size) {
-            if (board[destino.getX()][destino.getY()].getIsFloor()) {
+            Cell cell = board[destino.getX()][destino.getY()];
+            if (cell.getIsFloor() || cell.getIsDoor()) {
                 player.setPosition(destino);
             }
         }
