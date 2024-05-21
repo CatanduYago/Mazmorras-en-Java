@@ -1,9 +1,13 @@
 package com.dungeonmvc.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.dungeonmvc.App;
 import com.dungeonmvc.GameManager;
 import com.dungeonmvc.interfaces.Observer;
 import com.dungeonmvc.models.Board;
+import com.dungeonmvc.models.Enemy;
 import com.dungeonmvc.utils.Vector2;
 import com.dungeonmvc.utils.Vector2Double;
 
@@ -24,6 +28,8 @@ public class BoardViewController implements Observer{
     private double boardSize;
  
     private ImageView playerImg;
+        private Map<Enemy, ImageView> enemyImages = new HashMap<>();
+
 
     @FXML
     private void initialize() {
@@ -65,7 +71,19 @@ public class BoardViewController implements Observer{
         playerImg.setImage(new Image(App.class.getResource("images/"+board.getPlayer().getImage()+".png").toExternalForm(),cellSize,cellSize,true,false));
         playerImg.setSmooth(false);
         pane.getChildren().add(playerImg);
+       
+        for (Enemy enemy : board.getEnemies()) {
+            ImageView enemyImg = new ImageView();
+            enemyImg.setFitWidth(cellSize);
+            enemyImg.setFitHeight(cellSize);
+            enemyImg.setImage(new Image(App.class.getResource("images/" + enemy.getImage() + ".png").toExternalForm(), cellSize, cellSize, true, false));
+            enemyImg.setSmooth(false);
+            enemyImages.put(enemy, enemyImg);
+            pane.getChildren().add(enemyImg);
+        }
         onChange();
+         
+    
     }
 
     @Override

@@ -1,12 +1,15 @@
 package com.dungeonmvc.models;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import com.dungeonmvc.GameManager;
 import com.dungeonmvc.interfaces.Observer;
 import com.dungeonmvc.utils.Vector2;
 
 public class Board {
     private ArrayList<Observer> observers;
+    private ArrayList<Enemy> enemies;
 
     public enum Direction {
         UP, RIGHT, DOWN, LEFT
@@ -25,8 +28,17 @@ public class Board {
         this.floorImage = floorImage;
         this.wallImage = wallImage;
         this.doorImage = doorImage;
+        this.enemies = new ArrayList<>();
         this.player = GameManager.getInstance().getPlayer();
         observers = new ArrayList<>();
+    }
+
+    public void addEnemy(Enemy enemy) {
+        enemies.add(enemy);
+    }
+
+    public List<Enemy> getEnemies() {
+        return enemies;
     }
 
     public void suscribe(Observer observer) {
@@ -99,14 +111,14 @@ public class Board {
 
     public Cell getCell(Vector2 position) {
         return board[position.getX()][position.getY()];
-    } 
+    }
 
-    public void newCell(Vector2 position, boolean isFloor){
+    public void newCell(Vector2 position, boolean isFloor) {
         Cell cell = new Cell(isFloor);
         board[position.getX()][position.getY()] = cell;
     }
 
-    public void newCell(Vector2 position, boolean isFloor, boolean isDoor){
+    public void newCell(Vector2 position, boolean isFloor, boolean isDoor) {
         Cell cell = new Cell(isFloor, isDoor);
         board[position.getX()][position.getY()] = cell;
     }

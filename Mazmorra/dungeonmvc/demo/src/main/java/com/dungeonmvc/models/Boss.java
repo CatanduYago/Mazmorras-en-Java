@@ -6,12 +6,12 @@ import java.util.Random;
 import com.dungeonmvc.interfaces.Observer;
 import com.dungeonmvc.models.Item;
 
-public class Boss extends Enemies {
+public class Boss extends Enemy {
     private ArrayList<Item> items;
 
     public Boss(String name, String image, Double health, Double AD, Double AP, Double defense, Double speed,
             Double perception) {
-        super(name, image, health, AD, AP, defense, speed, perception);
+        super(name, image, health, AD, AP, defense, speed, position, perception);
         this.items = new ArrayList<>();
     }
 
