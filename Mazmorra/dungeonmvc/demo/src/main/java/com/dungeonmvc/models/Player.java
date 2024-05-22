@@ -1,51 +1,51 @@
 package com.dungeonmvc.models;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import com.dungeonmvc.interfaces.Observer;
-import com.dungeonmvc.interfaces.Interactive;
 import com.dungeonmvc.utils.Vector2;
 
-public class Player extends Entities implements Interactive{
-    ArrayList<Observer> observers;
-    
-    String image;
-    String name;
-    String portrait;
-    Double perception;
-    String leftHand;
-    String rightHand;
-    Vector2 position;
-    Inventory inventory;
-    ArrayList resistencias;
+public class Player extends Entities {
+    private ArrayList<Observer> observers;
+    private String image;
+    private String name;
+    private String portrait;
+    private Double perception;
+    private String leftHand;
+    private String rightHand;
+    private Vector2 position;
+    private Inventory inventory;
+    private ArrayList<String> resistencias;
+    private Board board; 
 
-
-    public Player(String portrait, String image, String name, Double health, Double AD, Double AP, Double defense, Double speed, Double perception, String leftHand, String rightHand, Vector2 start) {
+    public Player(String portrait, String image, String name, Double health, Double AD, Double AP, Double defense, Double speed, Double perception, String leftHand, String rightHand, Vector2 start, Board board) {
         super(health, AD, AP, defense, speed);
         observers = new ArrayList<>();
-
         this.portrait = portrait;
         this.image = image;
         this.name = name;
-        this.health = 5.0;
-        this.AD = 1.3;
-        this.AP = 0.0;
-        this.defense = 2.0;
-        this.speed = 1.0;
-        this.perception = 1.0;
+        this.health = health;
+        this.AD = AD;
+        this.AP = AP;
+        this.defense = defense;
+        this.speed = speed;
+        this.perception = perception;
         this.leftHand = leftHand;
         this.rightHand = rightHand;
         this.position = start;
         this.inventory = new Inventory();
         this.resistencias = new ArrayList<>();
+        this.board = board; 
     }
 
-    public void suscribe(Observer observer){
+    public enum Direction {
+        UP, RIGHT, DOWN, LEFT
+    }
+
+    public void subscribe(Observer observer) {
         observers.add(observer);
     }
 
-    public void unsuscribe(Observer observer){
+    public void unsubscribe(Observer observer) {
         observers.remove(observer);
     }
 
@@ -97,26 +97,55 @@ public class Player extends Entities implements Interactive{
         notifyObservers();
     }
 
-    public Inventory getInventory(){
+    public Inventory getInventory() {
         return this.inventory;
     }
-
 
     public Vector2 getPosition() {
         return this.position;
     }
 
-    public int getX(){
+    public int getX() {
         return this.position.getX();
     }
 
-    public int getY(){
+    public int getY() {
         return this.position.getY();
     }
 
     public void setPosition(Vector2 position) {
         this.position = position;
-        //notifyObservers();
+    }
+
+    public void move(Direction direction) {
+        Vector2 destination = getDestination(position, direction);
+        if (destination.getX() >= 0 && destination.getX() < board.getSize() && destination.getY() >= 0 && destination.getY() < board.getSize()) {
+            Cell cell = board.getCell(destination);
+            if (cell.getIsFloor() || cell.getIsDoor()) {
+                setPosition(destination);
+                board.notifyObservers();
+            }
+        }
+    }
+
+    private Vector2 getDestination(Vector2 position, Direction direction) {
+        int destX = position.getX();
+        int destY = position.getY();
+        switch (direction) {
+            case UP:
+                destY--;
+                break;
+            case RIGHT:
+                destX++;
+                break;
+            case DOWN:
+                destY++;
+                break;
+            case LEFT:
+                destX--;
+                break;
+        }
+        return new Vector2(destX, destY);
     }
 
     @Override

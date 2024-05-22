@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.dungeonmvc.App;
 import com.dungeonmvc.GameManager;
-import com.dungeonmvc.models.Board.Direction;
+import com.dungeonmvc.models.Player.Direction;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,12 +33,10 @@ public class MainViewController {
             inventoryView = inventoryLoader.load();
             playerView = playerLoader.load();
 
-            // Agregar la vista del tablero al panel correspondiente
             boardPane.getChildren().add(boardView);
             inventoryPane.getChildren().add(inventoryView);
             playerPane.getChildren().add(playerView);
 
-            // Ajustar el tamaño de la vista del tablero para que se ajuste al panel
             boardView.prefWidthProperty().bind(boardPane.widthProperty());
             boardView.prefHeightProperty().bind(boardPane.heightProperty());
             BoardViewController bvc = boardLoader.getController();

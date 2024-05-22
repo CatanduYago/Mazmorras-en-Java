@@ -5,11 +5,12 @@ import java.util.Random;
 
 import com.dungeonmvc.interfaces.Observer;
 import com.dungeonmvc.models.Item;
+import com.dungeonmvc.utils.Vector2;
 
 public class Boss extends Enemy {
     private ArrayList<Item> items;
 
-    public Boss(String name, String image, Double health, Double AD, Double AP, Double defense, Double speed,
+    public Boss(String name, String image, Double health, Double AD, Double AP, Double defense, Double speed, Vector2 position,
             Double perception) {
         super(name, image, health, AD, AP, defense, speed, position, perception);
         this.items = new ArrayList<>();

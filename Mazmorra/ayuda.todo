@@ -15,7 +15,10 @@
 ☐ Crear generacion de terreno @critical 
 ☐ Crear fog of war @critical 
 ☐ Implementar cofres y enemigos en el tablero @critical 
-☐ Hacer spray del enemigo, cofre, items, etc @critical 
+✔ Hacer sprite del enemigo @done (5/22/2024, 3:41:13 PM)
+☐ sprite cofre, items, etc @critical
 ☐ implementar las puertas en el tablero @critical
 ✔ mirar lo del jugador en el tablero @critical @done (5/20/2024, 5:11:30 PM)
+✔ movimiento player @done (5/22/2024, 6:02:29 PM)
+☐ movimiento enemigo
 

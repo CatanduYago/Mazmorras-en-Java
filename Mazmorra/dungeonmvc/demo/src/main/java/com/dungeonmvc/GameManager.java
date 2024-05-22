@@ -1,7 +1,7 @@
 package com.dungeonmvc;
 
 import com.dungeonmvc.models.*;
-import com.dungeonmvc.models.Board.Direction;
+import com.dungeonmvc.models.Player.Direction;
 import com.dungeonmvc.utils.Vector2;
 
 public class GameManager {
@@ -25,26 +25,21 @@ public class GameManager {
         return this.player;
     }
 
+    public Enemy getEnemy() {
+        return this.enemy;
+    }
+
     public Board getBoard() {
         return this.board;
     }
 
     public void newTurn(Direction direction) {
-        board.move(player, direction);
-    }
+        
+            player.move(direction);
+            enemy.moveRandomly();
+            }
 
     public void testGame() {
-        player = new Player("portrait", "player", "Paladin", 5.0, 1.3, 0.0, 1.0, 1.0, 1.0, "item7", "item6",
-                new Vector2(0, 0));
-        enemy = new Enemy("Rata", "rata", 10.0, 1.0, 0.0, 1.0, 1.0, new Vector2(216, 0), 1.0);
-
-        player.getInventory().addItem("item1");
-        player.getInventory().addItem("item2");
-        player.getInventory().addItem("item3");
-        player.getInventory().addItem("item4");
-        player.getInventory().addItem("item5");
-        player.getInventory().addItem("item8");
-
         boolean[][] boardMatrix = {
                 { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
                 { true, false, false, false, true, false, false, false, false, false, false, false, false, false,
@@ -75,5 +70,16 @@ public class GameManager {
                 board.newCell(new Vector2(i, j), isFloor, isDoor);
             }
         }
+
+        player = new Player("portrait", "player", "Paladin", 5.0, 1.3, 0.0, 1.0, 1.0, 1.0, "item7", "item6",
+                new Vector2(2, 0), board);
+        enemy = new Enemy("Rata", "rata", 10.0, 1.0, 0.0, 1.0, 1.0, new Vector2(0, 0), 1.0,board);
+
+        player.getInventory().addItem("item1");
+        player.getInventory().addItem("item2");
+        player.getInventory().addItem("item3");
+        player.getInventory().addItem("item4");
+        player.getInventory().addItem("item5");
+        player.getInventory().addItem("item8");
     }
 }
