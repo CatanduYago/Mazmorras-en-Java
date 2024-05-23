@@ -3,8 +3,11 @@ package com.dungeonmvc.models;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.dungeonmvc.GameManager;
 import com.dungeonmvc.interfaces.Interactive;
 import com.dungeonmvc.utils.Vector2;
+
+import javafx.stage.Stage;
 
 public class Enemy extends Entities implements Interactive {
 
@@ -14,6 +17,7 @@ public class Enemy extends Entities implements Interactive {
     Vector2 position;
     private Board board;
      private Random random;
+
 
     public Enemy(String name, String image, Double health, Double AD, Double AP, Double defense, Double speed,
             Vector2 start,
@@ -58,7 +62,7 @@ public class Enemy extends Entities implements Interactive {
     }
 
     public void setPerception(Double perception) {
-        this.perception = perception;
+        this.perception = 3.0;
     }
 
     public Vector2 getPosition() {
@@ -77,6 +81,58 @@ public class Enemy extends Entities implements Interactive {
         this.position = position;
     }
 
+    public void moveTowardsPlayer(Player player) {
+        if (isWithinDistance(player, perception)) {
+            Direction direction = getDirectionTowardsPlayer(player);
+            if (direction != null) {
+                move(direction);
+                
+            }
+        } else {
+            moveRandomly();
+        }
+    }
+
+    private boolean isWithinDistance(Player player, Double perception) {
+        int dx = Math.abs(player.getX() - this.getX());
+        int dy = Math.abs(player.getY() - this.getY());
+        return dx + dy <= perception;
+    }
+
+    private Direction getDirectionTowardsPlayer(Player player) {
+        int dx = player.getX() - this.getX();
+        int dy = player.getY() - this.getY();
+        if (Math.abs(dx) > Math.abs(dy)) {
+            return dx > 0 ? Direction.RIGHT : Direction.LEFT;
+        } else {
+            return dy > 0 ? Direction.DOWN : Direction.UP;
+        }
+    }
+    private void interact(Player player) {
+        double damage = this.AD - player.getDefense();
+        if (damage > 0) {
+            player.receiveDamage(damage);
+            if (player.getHealth() > 0) {
+                System.out.println(this.getName() + " ataca haciendo " + damage + " de daño a " + player.getName());
+            }
+        } else {
+            System.out.println(this.getName() + " ataca pero no le hace daño a " + player.getName());
+        }
+    }
+    public void receiveDamage(double damage) {
+        this.setHealth(this.getHealth() - damage);
+        if (this.getHealth() <= 0) {
+            System.out.println(this.getName() + " ha sido derrotado.");
+        }
+    }
+    public void takeDamage(double damage) {
+        this.health -= damage;
+        System.out.println(this.getName() + " recibe " + damage + " de daño. Vida restante: " + this.health);
+        if (this.health <= 0) {
+            System.out.println(this.getName() + " ha sido derrotado.");
+        }
+    }
+
     public void move(Direction direction) {
         Vector2 destination = getDestination(position, direction);
         if (destination.getX() >= 0 && destination.getX() < board.getSize() && destination.getY() >= 0
@@ -85,6 +141,9 @@ public class Enemy extends Entities implements Interactive {
             if (cell.getIsFloor() || cell.getIsDoor()) {
                 setPosition(destination);
                 board.notifyObservers();
+                if (this.position.getY() == GameManager.getInstance().getPlayer().getPosition().getY()) {
+                    interact(GameManager.getInstance().getPlayer());
+                }
             }
         }
     }
@@ -111,12 +170,10 @@ public class Enemy extends Entities implements Interactive {
 
     public void moveRandomly() {
         Direction[] directions = Direction.values();
-        Direction randomDirection = directions[random.nextInt(directions.length)];
-        move(randomDirection);
+        Direction direction = directions[random.nextInt(directions.length)];
+        move(direction);
     }
-    public void interactive() {
-        System.out.println("*chilla* tsspsst No pasarás sin pelear conmigo *chilla en rata*");
-    }
+    
 
     public void interactive(String... args) {
 

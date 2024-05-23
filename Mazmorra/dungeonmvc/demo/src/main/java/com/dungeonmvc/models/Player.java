@@ -2,6 +2,8 @@ package com.dungeonmvc.models;
 
 import java.util.ArrayList;
 import com.dungeonmvc.interfaces.Observer;
+import com.dungeonmvc.utils.DiceRoll;
+import com.dungeonmvc.utils.DiceRoll.Dice;
 import com.dungeonmvc.utils.Vector2;
 
 public class Player extends Entities {
@@ -15,9 +17,10 @@ public class Player extends Entities {
     private Vector2 position;
     private Inventory inventory;
     private ArrayList<String> resistencias;
-    private Board board; 
+    private Board board;
 
-    public Player(String portrait, String image, String name, Double health, Double AD, Double AP, Double defense, Double speed, Double perception, String leftHand, String rightHand, Vector2 start, Board board) {
+    public Player(String portrait, String image, String name, Double health, Double AD, Double AP, Double defense,
+            Double speed, Double perception, String leftHand, String rightHand, Vector2 start, Board board) {
         super(health, AD, AP, defense, speed);
         observers = new ArrayList<>();
         this.portrait = portrait;
@@ -34,7 +37,7 @@ public class Player extends Entities {
         this.position = start;
         this.inventory = new Inventory();
         this.resistencias = new ArrayList<>();
-        this.board = board; 
+        this.board = board;
     }
 
     public enum Direction {
@@ -49,7 +52,7 @@ public class Player extends Entities {
         observers.remove(observer);
     }
 
-    public void notifyObservers(){
+    public void notifyObservers() {
         observers.forEach(x -> x.onChange());
     }
 
@@ -119,7 +122,8 @@ public class Player extends Entities {
 
     public void move(Direction direction) {
         Vector2 destination = getDestination(position, direction);
-        if (destination.getX() >= 0 && destination.getX() < board.getSize() && destination.getY() >= 0 && destination.getY() < board.getSize()) {
+        if (destination.getX() >= 0 && destination.getX() < board.getSize() && destination.getY() >= 0
+                && destination.getY() < board.getSize()) {
             Cell cell = board.getCell(destination);
             if (cell.getIsFloor() || cell.getIsDoor()) {
                 setPosition(destination);
@@ -147,12 +151,31 @@ public class Player extends Entities {
         }
         return new Vector2(destX, destY);
     }
+    public void receiveDamage(double damage) {
+        this.setHealth(this.getHealth() - damage);
+        if (this.getHealth() <= 0) {
+            System.out.println(this.getName() + " ha sido derrotado.");
+        }
+    }
+    public void interact(Enemy enemy) {
+        double damageDice = DiceRoll.roll(Dice.d20);
+        double damage = this.AD + damageDice - enemy.getDefense();
+        System.out.println("*chilla* tsspsst No pasarás sin pelear conmigo *chilla en rata*");
+        if (damage > 0) {
+            enemy.setHealth(enemy.getHealth() - damage);
+            System.out.println(this.getName() + " ataca haciendo " + damage + " de daño");
+
+            if (enemy.getHealth() <= 0 && getHealth() > 0) {
+                System.out.println("¡Has derrotado a " + enemy.getName() + "!");
+                // board.removeEnemy(enemy);
+
+            } else {
+                System.out.println(" No le hace daño");
+            }
+        }
+    }
 
     @Override
-    public void interactive() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'interactive'");
-    }
 
     public void interactive(String... args) {
         // TODO Auto-generated method stub

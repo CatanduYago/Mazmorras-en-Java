@@ -6,11 +6,14 @@ import com.dungeonmvc.App;
 import com.dungeonmvc.GameManager;
 import com.dungeonmvc.models.Player.Direction;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class MainViewController {
     @FXML
@@ -48,8 +51,17 @@ public class MainViewController {
         }
 
         restartButton.setOnAction(actionEvent -> {
-            System.out.println("Restart button pressed");
+            Stage primaryStage = (Stage) restartButton.getScene().getWindow();
+            try {
+                FXMLLoader loader = new FXMLLoader(App.class.getResource("mainView.fxml"));
+                Scene mainScene = new Scene(loader.load());
+                primaryStage.setScene(mainScene);
+                GameManager.getInstance().testGame();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
+    
 
         boardPane.setOnMouseClicked(eventHandler -> {
             boardPane.requestFocus();
@@ -73,5 +85,8 @@ public class MainViewController {
             GameManager.getInstance().newTurn(direction);
         });
     }
-
+    @FXML
+    public void initializeAfterReset() {
+        boardPane.requestFocus();
+    }
 }

@@ -11,8 +11,8 @@ public class Boss extends Enemy {
     private ArrayList<Item> items;
 
     public Boss(String name, String image, Double health, Double AD, Double AP, Double defense, Double speed, Vector2 position,
-            Double perception) {
-        super(name, image, health, AD, AP, defense, speed, position, perception);
+            Double perception, Board board) {
+        super(name, image, health, AD, AP, defense, speed, position, perception, board);
         this.items = new ArrayList<>();
     }
 

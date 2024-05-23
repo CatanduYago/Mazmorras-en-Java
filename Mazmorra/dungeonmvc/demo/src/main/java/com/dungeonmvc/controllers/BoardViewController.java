@@ -24,20 +24,18 @@ public class BoardViewController implements Observer {
     private Board board;
     private double cellSize;
     private double boardSize;
+    ImageView enemyImg;
 
     private ImageView playerImg;
 
     @FXML
     private void initialize() {
         System.out.println("Board controller loaded");
-        
-
 
     }
 
     public void setUp() {
         board = GameManager.getInstance().getBoard();
-        Player player = GameManager.getInstance().getPlayer();
         board.subscribe(this);
         int cellNumber = board.getSize();
         cellSize = boardSize / cellNumber;
@@ -68,35 +66,38 @@ public class BoardViewController implements Observer {
         }
 
         playerImg = new ImageView();
+        enemyImg = new ImageView();
+
         playerImg.setFitWidth(cellSize);
         playerImg.setFitHeight(cellSize);
-        playerImg.setImage(
-                new Image(App.class.getResource("images/" + GameManager.getInstance().getPlayer().getImage() + ".png").toExternalForm(),
-                        cellSize, cellSize, true, false));
+        playerImg.setImage(new Image(
+                App.class.getResource("images/" + GameManager.getInstance().getPlayer().getImage() + ".png")
+                        .toExternalForm(),cellSize, cellSize, true, false));
         playerImg.setSmooth(false);
         pane.getChildren().add(playerImg);
 
-        onChange();
-        ImageView enemyImg = new ImageView();
         enemyImg.setFitWidth(cellSize);
         enemyImg.setFitHeight(cellSize);
-        enemyImg.setImage(new Image(App.class.getResource("images/" +  GameManager.getInstance().getEnemy().getImage() + ".png").toExternalForm(),
-                cellSize, cellSize, true, false));
+        enemyImg.setImage(new Image(
+                App.class.getResource("images/" + GameManager.getInstance().getEnemy().getImage() + ".png")
+                        .toExternalForm(),cellSize, cellSize, true, false));
         enemyImg.setSmooth(false);
         pane.getChildren().add(enemyImg);
-
         onChange();
+
     }
 
     @Override
     public void onChange() {
         Vector2Double newPos = matrixToInterface(GameManager.getInstance().getPlayer().getPosition());
-        ImageView enemyImg = new ImageView();
+        Vector2Double newPosEnemy = matrixToInterface(GameManager.getInstance().getEnemy().getPosition());
+
         System.out.println(newPos);
         playerImg.setLayoutX(newPos.getX());
         playerImg.setLayoutY(newPos.getY());
-        enemyImg.setLayoutX(newPos.getX());
-        enemyImg.setLayoutY(newPos.getY());
+        System.out.println(newPosEnemy);
+        enemyImg.setLayoutX(newPosEnemy.getX());
+        enemyImg.setLayoutY(newPosEnemy.getY());
     }
 
     @Override

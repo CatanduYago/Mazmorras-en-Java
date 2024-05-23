@@ -37,7 +37,17 @@ public class Vector2 {
             "}";
     }
 
-
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Vector2 other = (Vector2) obj;
+        return x == other.x && y == other.y;
+    }
     public static void main(String[] args) {
         Vector2 v1 = new Vector2(3, 6);
         Vector2 v2 = new Vector2(4, 7);
