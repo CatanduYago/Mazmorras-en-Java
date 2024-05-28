@@ -151,27 +151,36 @@ public class Player extends Entities {
         }
         return new Vector2(destX, destY);
     }
-    public void receiveDamage(double damage) {
-        this.setHealth(this.getHealth() - damage);
-        if (this.getHealth() <= 0) {
-            System.out.println(this.getName() + " ha sido derrotado.");
+    public void interact(Enemy enemy) {
+        if (this.getSpeed() > enemy.getSpeed()) {
+            attackEnemy(enemy);
+            if (enemy.getHealth() > 0) {
+                enemy.attackPlayer(this);
+            }
+        } else {
+            enemy.attackPlayer(this);
+            if (this.getHealth() > 0) {
+                attackEnemy(enemy);
+            }
         }
     }
-    public void interact(Enemy enemy) {
-        double damageDice = DiceRoll.roll(Dice.d20);
-        double damage = this.AD + damageDice - enemy.getDefense();
-        System.out.println("*chilla* tsspsst No pasarás sin pelear conmigo *chilla en rata*");
+    
+     private void attackEnemy(Enemy enemy) {
+        double damageDice = DiceRoll.roll(Dice.d6);
+        double damage = this.getAD() + damageDice - enemy.getDefense();
         if (damage > 0) {
-            enemy.setHealth(enemy.getHealth() - damage);
-            System.out.println(this.getName() + " ataca haciendo " + damage + " de daño");
+            enemy.receiveDamage(damage);
+            System.out.println(this.getName() + " ataca haciendo " + damage + " de daño a " + enemy.getName());
+        } else {
+            System.out.println(this.getName() + " ataca pero no le hace daño a " + enemy.getName());
+        }
+    }
 
-            if (enemy.getHealth() <= 0 && getHealth() > 0) {
-                System.out.println("¡Has derrotado a " + enemy.getName() + "!");
-                // board.removeEnemy(enemy);
-
-            } else {
-                System.out.println(" No le hace daño");
-            }
+    public void receiveDamage(double damage) {
+        this.setHealth(this.getHealth() - damage);
+        System.out.println(this.getName() + " recibe " + damage + " de daño. Vida restante: " + this.getHealth());
+        if (this.getHealth() <= 0) {
+            System.out.println(getName() + " ha sido derrotado.");
         }
     }
 

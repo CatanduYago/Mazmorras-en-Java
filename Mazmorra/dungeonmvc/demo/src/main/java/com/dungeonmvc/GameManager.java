@@ -34,12 +34,11 @@ public class GameManager {
     }
 
     public void newTurn(Direction direction) {
-        
-            player.move(direction);
-            enemy.moveTowardsPlayer(player);
-            if (player.getPosition().equals(enemy.getPosition())) {
-                player.interact(enemy);
-            }
+        player.move(direction);
+        enemy.moveTowardsPlayer(player);
+        if (player.getPosition().equals(enemy.getPosition())) {
+            player.interact(enemy);
+        }
             
 
 }
@@ -76,7 +75,7 @@ public class GameManager {
             }
         }
 
-        player = new Player("portrait", "player", "Paladin", 5.0, 1.3, 0.0, 1.0, 1.0, 1.0, "item7", "item6",
+        player = new Player("portrait", "player", "Paladin", 50.0, 1.3, 0.0, 1.0, 1.0, 1.0, "item7", "item6",
                 new Vector2(4, 0), board);
         enemy = new Enemy("Roedor del Río", "rata", 10.0, 1.0, 0.0, 1.0, 1.0, new Vector2(0, 0), 3.0,board);
 

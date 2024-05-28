@@ -31,7 +31,6 @@ public class BoardViewController implements Observer {
     @FXML
     private void initialize() {
         System.out.println("Board controller loaded");
-
     }
 
     public void setUp() {
@@ -84,7 +83,6 @@ public class BoardViewController implements Observer {
         enemyImg.setSmooth(false);
         pane.getChildren().add(enemyImg);
         onChange();
-
     }
 
     @Override
@@ -114,3 +112,4 @@ public class BoardViewController implements Observer {
         this.boardSize = boardSize;
     }
 }
+

@@ -5,6 +5,8 @@ import java.util.Random;
 
 import com.dungeonmvc.GameManager;
 import com.dungeonmvc.interfaces.Interactive;
+import com.dungeonmvc.utils.DiceRoll;
+import com.dungeonmvc.utils.DiceRoll.Dice;
 import com.dungeonmvc.utils.Vector2;
 
 import javafx.stage.Stage;
@@ -108,27 +110,21 @@ public class Enemy extends Entities implements Interactive {
             return dy > 0 ? Direction.DOWN : Direction.UP;
         }
     }
-    private void interact(Player player) {
-        double damage = this.AD - player.getDefense();
+    public void attackPlayer(Player player) {
+        double damageDice = DiceRoll.roll(Dice.d6);
+        double damage = this.getAD() + damageDice - player.getDefense();
         if (damage > 0) {
             player.receiveDamage(damage);
-            if (player.getHealth() > 0) {
-                System.out.println(this.getName() + " ataca haciendo " + damage + " de daño a " + player.getName());
-            }
+            System.out.println(this.getName() + " ataca haciendo " + damage + " de daño a " + player.getName());
         } else {
             System.out.println(this.getName() + " ataca pero no le hace daño a " + player.getName());
         }
     }
+
     public void receiveDamage(double damage) {
         this.setHealth(this.getHealth() - damage);
+        System.out.println(this.getName() + " recibe " + damage + " de daño. Vida restante: " + this.getHealth());
         if (this.getHealth() <= 0) {
-            System.out.println(this.getName() + " ha sido derrotado.");
-        }
-    }
-    public void takeDamage(double damage) {
-        this.health -= damage;
-        System.out.println(this.getName() + " recibe " + damage + " de daño. Vida restante: " + this.health);
-        if (this.health <= 0) {
             System.out.println(this.getName() + " ha sido derrotado.");
         }
     }
@@ -142,7 +138,7 @@ public class Enemy extends Entities implements Interactive {
                 setPosition(destination);
                 board.notifyObservers();
                 if (this.position.getY() == GameManager.getInstance().getPlayer().getPosition().getY()) {
-                    interact(GameManager.getInstance().getPlayer());
+                    attackPlayer(GameManager.getInstance().getPlayer());
                 }
             }
         }
