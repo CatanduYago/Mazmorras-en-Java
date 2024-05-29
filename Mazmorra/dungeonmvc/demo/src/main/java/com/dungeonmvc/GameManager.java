@@ -7,7 +7,7 @@ import com.dungeonmvc.utils.Vector2;
 public class GameManager {
     private static GameManager instance;
 
-    Player player;
+    Player player; // Mete al enemigo en un arraylist de y
     Enemy enemy;
     Board board;
 

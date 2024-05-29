@@ -23,10 +23,13 @@
 ✔ movimiento enemigo @done (5/23/2024, 3:50:07 PM)
 ✔ Que la rata de los cojones te siga si estas a una distancia de 3 suelos. @done (5/23/2024, 3:56:47 PM)
 ✔ Crear la interaccion entre la rata y el personaje @done (5/23/2024, 4:16:33 PM)
-☐ Cmbia interaccion, a 1 celda de distancia
+✔ Cmbia interaccion, a 1 celda de distancia @done (5/29/2024, 3:40:21 PM)
 ✔ Crear metodos para que la vida baje hasta 0 @done (5/23/2024, 5:06:31 PM)
-☐ Hay que arreglar la interaccion entre enemigo y player. Recibe null en el getname de player
+✔ Hay que arreglar la interaccion entre enemigo y player. Recibe null en el getname de player @done (5/29/2024, 3:40:31 PM)
+☐ Añadir más enemigos
 ☐ Crear otro fxml
 ☐ Boton rreiniciar logica
+☐ Implementar vid adaño y cosas en el hud del juego
+☐ Leer guia tonoto
 
 

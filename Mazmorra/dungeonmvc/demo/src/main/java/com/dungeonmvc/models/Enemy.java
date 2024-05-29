@@ -110,6 +110,7 @@ public class Enemy extends Entities implements Interactive {
             return dy > 0 ? Direction.DOWN : Direction.UP;
         }
     }
+
     public void attackPlayer(Player player) {
         double damageDice = DiceRoll.roll(Dice.d6);
         double damage = this.getAD() + damageDice - player.getDefense();

@@ -180,7 +180,7 @@ public class Player extends Entities {
         this.setHealth(this.getHealth() - damage);
         System.out.println(this.getName() + " recibe " + damage + " de daño. Vida restante: " + this.getHealth());
         if (this.getHealth() <= 0) {
-            System.out.println(getName() + " ha sido derrotado.");
+            System.out.println(this.getName() + " ha sido derrotado.");
         }
     }
 
