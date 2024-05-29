@@ -1,70 +1,26 @@
 package com.dungeonmvc.models;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import com.dungeonmvc.GameManager;
-import com.dungeonmvc.interfaces.Interactive;
 import com.dungeonmvc.utils.DiceRoll;
 import com.dungeonmvc.utils.DiceRoll.Dice;
 import com.dungeonmvc.utils.Vector2;
+import java.util.Random;
 
-import javafx.stage.Stage;
-
-public class Enemy extends Entities implements Interactive {
-
-    Double perception;
-    String image;
-    String name;
-    Vector2 position;
+public class Enemy extends Entities {
+    private Vector2 position;
     private Board board;
-     private Random random;
-
+    private Random random;
 
     public Enemy(String name, String image, Double health, Double AD, Double AP, Double defense, Double speed,
-            Vector2 start,
-            Double perception, Board board) {
-        super(health, AD, AP, defense, speed);
-        this.name = name;
-        this.image = image;
-        this.health = health;
-        this.AD = AD;
-        this.AP = AP;
-        this.defense = defense;
-        this.speed = speed;
+            Vector2 start, Double perception, Board board) {
+        super(health, AD, AP, defense, speed, name, image, perception);
         this.position = start;
-        this.perception = perception;
         this.board = board;
-        this.random = new Random(); 
-
+        this.random = new Random();
     }
 
     public enum Direction {
         UP, RIGHT, DOWN, LEFT
-    }
-
-    public String getImage() {
-        return this.image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getPerception() {
-        return this.perception;
-    }
-
-    public void setPerception(Double perception) {
-        this.perception = 3.0;
     }
 
     public Vector2 getPosition() {
@@ -84,11 +40,10 @@ public class Enemy extends Entities implements Interactive {
     }
 
     public void moveTowardsPlayer(Player player) {
-        if (isWithinDistance(player, perception)) {
+        if (isWithinDistance(player, this.getPerception())) {
             Direction direction = getDirectionTowardsPlayer(player);
             if (direction != null) {
                 move(direction);
-                
             }
         } else {
             moveRandomly();
@@ -110,7 +65,19 @@ public class Enemy extends Entities implements Interactive {
             return dy > 0 ? Direction.DOWN : Direction.UP;
         }
     }
-
+    public void interact(Player player) {
+        if (this.getSpeed() > player.getSpeed()) {
+            attackPlayer(player);
+            if (player.getHealth() > 0) {
+                player.attackEnemy(this);
+            }
+        } else {
+            player.attackEnemy(this);
+            if (this.getHealth() > 0) {
+                attackPlayer(player);
+            }
+        }
+    }
     public void attackPlayer(Player player) {
         double damageDice = DiceRoll.roll(Dice.d6);
         double damage = this.getAD() + damageDice - player.getDefense();
@@ -119,6 +86,7 @@ public class Enemy extends Entities implements Interactive {
             System.out.println(this.getName() + " ataca haciendo " + damage + " de daño a " + player.getName());
         } else {
             System.out.println(this.getName() + " ataca pero no le hace daño a " + player.getName());
+            
         }
     }
 
@@ -138,7 +106,7 @@ public class Enemy extends Entities implements Interactive {
             if (cell.getIsFloor() || cell.getIsDoor()) {
                 setPosition(destination);
                 board.notifyObservers();
-                if (this.position.getY() == GameManager.getInstance().getPlayer().getPosition().getY()) {
+                if (this.position.equals(GameManager.getInstance().getPlayer().getPosition())) {
                     attackPlayer(GameManager.getInstance().getPlayer());
                 }
             }
@@ -170,10 +138,9 @@ public class Enemy extends Entities implements Interactive {
         Direction direction = directions[random.nextInt(directions.length)];
         move(direction);
     }
-    
 
+    @Override
     public void interactive(String... args) {
-
+        // Implementar si es necesario
     }
-
 }

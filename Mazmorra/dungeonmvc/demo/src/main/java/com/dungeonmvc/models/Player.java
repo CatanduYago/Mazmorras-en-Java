@@ -8,30 +8,21 @@ import com.dungeonmvc.utils.Vector2;
 
 public class Player extends Entities {
     private ArrayList<Observer> observers;
-    private String image;
-    private String name;
     private String portrait;
-    private Double perception;
     private String leftHand;
     private String rightHand;
     private Vector2 position;
     private Inventory inventory;
     private ArrayList<String> resistencias;
     private Board board;
+    private Double maxHealth;
 
     public Player(String portrait, String image, String name, Double health, Double AD, Double AP, Double defense,
             Double speed, Double perception, String leftHand, String rightHand, Vector2 start, Board board) {
-        super(health, AD, AP, defense, speed);
+        super(health, AD, AP, defense, speed, name, image, perception);
         observers = new ArrayList<>();
+        this.maxHealth = health;
         this.portrait = portrait;
-        this.image = image;
-        this.name = name;
-        this.health = health;
-        this.AD = AD;
-        this.AP = AP;
-        this.defense = defense;
-        this.speed = speed;
-        this.perception = perception;
         this.leftHand = leftHand;
         this.rightHand = rightHand;
         this.position = start;
@@ -65,23 +56,6 @@ public class Player extends Entities {
         notifyObservers();
     }
 
-    public String getImage() {
-        return this.image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-        notifyObservers();
-    }
-
     public String getLeftHand() {
         return this.leftHand;
     }
@@ -106,6 +80,9 @@ public class Player extends Entities {
 
     public Vector2 getPosition() {
         return this.position;
+    }
+    public Double getMaxHealth() {
+        return this.maxHealth;
     }
 
     public int getX() {
@@ -151,6 +128,7 @@ public class Player extends Entities {
         }
         return new Vector2(destX, destY);
     }
+
     public void interact(Enemy enemy) {
         if (this.getSpeed() > enemy.getSpeed()) {
             attackEnemy(enemy);
@@ -165,7 +143,7 @@ public class Player extends Entities {
         }
     }
     
-     private void attackEnemy(Enemy enemy) {
+    public void attackEnemy(Enemy enemy) {
         double damageDice = DiceRoll.roll(Dice.d6);
         double damage = this.getAD() + damageDice - enemy.getDefense();
         if (damage > 0) {
@@ -182,12 +160,8 @@ public class Player extends Entities {
         if (this.getHealth() <= 0) {
             System.out.println(this.getName() + " ha sido derrotado.");
         }
+        notifyObservers();
     }
 
-    @Override
-
-    public void interactive(String... args) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'interactive'");
-    }
+    
 }

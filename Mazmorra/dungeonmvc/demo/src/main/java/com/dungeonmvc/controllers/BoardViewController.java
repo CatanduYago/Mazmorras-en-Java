@@ -15,6 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
+
 public class BoardViewController implements Observer {
     @FXML
     private Pane pane;
@@ -24,9 +26,9 @@ public class BoardViewController implements Observer {
     private Board board;
     private double cellSize;
     private double boardSize;
-    ImageView enemyImg;
 
     private ImageView playerImg;
+    private ArrayList<ImageView> enemyImgs;
 
     @FXML
     private void initialize() {
@@ -65,37 +67,44 @@ public class BoardViewController implements Observer {
         }
 
         playerImg = new ImageView();
-        enemyImg = new ImageView();
-
         playerImg.setFitWidth(cellSize);
         playerImg.setFitHeight(cellSize);
         playerImg.setImage(new Image(
                 App.class.getResource("images/" + GameManager.getInstance().getPlayer().getImage() + ".png")
-                        .toExternalForm(),cellSize, cellSize, true, false));
+                        .toExternalForm(), cellSize, cellSize, true, false));
         playerImg.setSmooth(false);
         pane.getChildren().add(playerImg);
 
-        enemyImg.setFitWidth(cellSize);
-        enemyImg.setFitHeight(cellSize);
-        enemyImg.setImage(new Image(
-                App.class.getResource("images/" + GameManager.getInstance().getEnemy().getImage() + ".png")
-                        .toExternalForm(),cellSize, cellSize, true, false));
-        enemyImg.setSmooth(false);
-        pane.getChildren().add(enemyImg);
+        enemyImgs = new ArrayList<>();
+        for (Enemy enemy : GameManager.getInstance().getEnemies()) {
+            ImageView enemyImg = new ImageView();
+            enemyImg.setFitWidth(cellSize);
+            enemyImg.setFitHeight(cellSize);
+            enemyImg.setImage(new Image(
+                    App.class.getResource("images/" + enemy.getImage() + ".png")
+                            .toExternalForm(), cellSize, cellSize, true, false));
+            enemyImg.setSmooth(false);
+            pane.getChildren().add(enemyImg);
+            enemyImgs.add(enemyImg);
+        }
+
         onChange();
     }
 
     @Override
     public void onChange() {
         Vector2Double newPos = matrixToInterface(GameManager.getInstance().getPlayer().getPosition());
-        Vector2Double newPosEnemy = matrixToInterface(GameManager.getInstance().getEnemy().getPosition());
-
         System.out.println(newPos);
         playerImg.setLayoutX(newPos.getX());
         playerImg.setLayoutY(newPos.getY());
-        System.out.println(newPosEnemy);
-        enemyImg.setLayoutX(newPosEnemy.getX());
-        enemyImg.setLayoutY(newPosEnemy.getY());
+
+        ArrayList<Enemy> enemies = GameManager.getInstance().getEnemies();
+        for (int i = 0; i < enemies.size(); i++) {
+            Vector2Double newPosEnemy = matrixToInterface(enemies.get(i).getPosition());
+            System.out.println(newPosEnemy);
+            enemyImgs.get(i).setLayoutX(newPosEnemy.getX());
+            enemyImgs.get(i).setLayoutY(newPosEnemy.getY());
+        }
     }
 
     @Override
@@ -112,4 +121,3 @@ public class BoardViewController implements Observer {
         this.boardSize = boardSize;
     }
 }
-

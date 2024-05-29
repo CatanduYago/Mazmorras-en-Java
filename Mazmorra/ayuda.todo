@@ -2,22 +2,6 @@
 ✔ Interfaz interactive @done (5/15/2024, 5:18:21 PM)
 ✔ Implementar interfaz en personajes @done (5/15/2024, 5:20:39 PM)
 ✔ ñadir atributo interactuable en las casillas @done (5/15/2024, 6:05:12 PM)
-
-✔ Implementar BOss y su Herencia @low @done (5/16/2024, 5:19:19 PM)
-☐ Crear la historia @low
-☐ Crear objetos (artefactos, consumibles y equipables) @high
-✔ cambio de items del inventario ala mano @high @done (5/20/2024, 5:12:06 PM)
-☐ añadir atributo interactuable a los objetos @high
-☐ Crear Habilidades @high 
-☐ Crear Resistencias @high
-☐ Crear la interfaz de la historia @high
-☐ Crear pathfinding algorithm @critical 
-☐ Crear generacion de terreno @critical 
-☐ Crear fog of war @critical 
-☐ Implementar cofres y enemigos en el tablero @critical 
-✔ Hacer sprite del enemigo @done (5/22/2024, 3:41:13 PM)
-☐ sprite cofre, items, etc @critical 
-☐ implementar las puertas en el tablero @critical
 ✔ mirar lo del jugador en el tablero @critical @done (5/20/2024, 5:11:30 PM)
 ✔ movimiento player @done (5/22/2024, 6:02:29 PM)
 ✔ movimiento enemigo @done (5/23/2024, 3:50:07 PM)
@@ -26,10 +10,26 @@
 ✔ Cmbia interaccion, a 1 celda de distancia @done (5/29/2024, 3:40:21 PM)
 ✔ Crear metodos para que la vida baje hasta 0 @done (5/23/2024, 5:06:31 PM)
 ✔ Hay que arreglar la interaccion entre enemigo y player. Recibe null en el getname de player @done (5/29/2024, 3:40:31 PM)
-☐ Añadir más enemigos
+✔ Añadir más enemigos @done (5/29/2024, 10:28:19 PM)
+✔ Implementar vid adaño y cosas en el hud del juego @done (5/29/2024, 10:28:23 PM)
+✔ Implementar BOss y su Herencia @low @done (5/16/2024, 5:19:19 PM)
+✔ cambio de items del inventario ala mano @high @done (5/20/2024, 5:12:06 PM)
+✔ Hacer sprite del enemigo @done (5/22/2024, 3:41:13 PM)
+
+☐ Crear la historia @low
+☐ Crear objetos (artefactos, consumibles y equipables) @high
+☐ añadir atributo interactuable a los objetos @high
+☐ Crear Habilidades @high 
+☐ Crear Resistencias @high
+☐ Crear la interfaz de la historia @high
+☐ Crear pathfinding algorithm @critical 
+☐ Crear generacion de terreno @critical 
+☐ Crear fog of war @critical 
+☐ Implementar cofres y enemigos en el tablero @critical 
+☐ sprite cofre, items, etc @critical 
+☐ implementar las puertas en el tablero @critical
 ☐ Crear otro fxml
 ☐ Boton rreiniciar logica
-☐ Implementar vid adaño y cosas en el hud del juego
 ☐ Leer guia tonoto
 
 

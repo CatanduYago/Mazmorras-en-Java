@@ -10,26 +10,25 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class PlayerViewController implements Observer{
+public class PlayerViewController implements Observer {
     @FXML
-    ImageView portrait;
+    private ImageView portrait;
     @FXML
-    Label nameTag;
+    private Label nameTag;
     @FXML
-    Label maxHealthTag;
-    @FXML 
-    Label currentHealthTag;
+    private Label maxHealthTag;
     @FXML
-    Label strenghtTag;
+    private Label currentHealthTag;
     @FXML
-    Label defenseTag;
+    private Label strengthTag;
     @FXML
-    ImageView leftWeaponImg;
+    private Label defenseTag;
     @FXML
-    ImageView rightWeaponImg;
+    private ImageView leftWeaponImg;
+    @FXML
+    private ImageView rightWeaponImg;
 
-    Player player;
-    
+    private Player player;
 
     @FXML
     private void initialize() {
@@ -37,21 +36,22 @@ public class PlayerViewController implements Observer{
 
         player = GameManager.getInstance().getPlayer();
         player.subscribe(this);
-        portrait.setImage(new Image(App.class.getResource("images/"+player.getPortrait()+".png").toExternalForm(),portrait.getFitWidth(),portrait.getFitHeight(),true,false));
-        leftWeaponImg.setImage(new Image(App.class.getResource("images/"+player.getLeftHand()+".png").toExternalForm(),leftWeaponImg.getFitWidth(),leftWeaponImg.getFitHeight(),true,false));
-        rightWeaponImg.setImage(new Image(App.class.getResource("images/"+player.getRightHand()+".png").toExternalForm(),rightWeaponImg.getFitWidth(),rightWeaponImg.getFitHeight(),true,false));
+        portrait.setImage(new Image(App.class.getResource("images/" + player.getPortrait() + ".png").toExternalForm(), portrait.getFitWidth(), portrait.getFitHeight(), true, false));
+        leftWeaponImg.setImage(new Image(App.class.getResource("images/" + player.getLeftHand() + ".png").toExternalForm(), leftWeaponImg.getFitWidth(), leftWeaponImg.getFitHeight(), true, false));
+        rightWeaponImg.setImage(new Image(App.class.getResource("images/" + player.getRightHand() + ".png").toExternalForm(), rightWeaponImg.getFitWidth(), rightWeaponImg.getFitHeight(), true, false));
 
-        
         onChange();
     }
-
 
     @Override
     public void onChange() {
         nameTag.setText(player.getName());
-        leftWeaponImg.setImage(new Image(App.class.getResource("images/"+player.getLeftHand()+".png").toExternalForm(),leftWeaponImg.getFitWidth(),leftWeaponImg.getFitHeight(),true,false));
-        rightWeaponImg.setImage(new Image(App.class.getResource("images/"+player.getRightHand()+".png").toExternalForm(),rightWeaponImg.getFitWidth(),rightWeaponImg.getFitHeight(),true,false));
-        
+        maxHealthTag.setText("" + player.getMaxHealth());
+        currentHealthTag.setText("" + player.getHealth());
+        strengthTag.setText(player.getAD().toString());
+        defenseTag.setText(player.getDefense().toString());
+        leftWeaponImg.setImage(new Image(App.class.getResource("images/" + player.getLeftHand() + ".png").toExternalForm(), leftWeaponImg.getFitWidth(), leftWeaponImg.getFitHeight(), true, false));
+        rightWeaponImg.setImage(new Image(App.class.getResource("images/" + player.getRightHand() + ".png").toExternalForm(), rightWeaponImg.getFitWidth(), rightWeaponImg.getFitHeight(), true, false));
     }
 
     @Override

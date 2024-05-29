@@ -4,14 +4,17 @@ import com.dungeonmvc.models.*;
 import com.dungeonmvc.models.Player.Direction;
 import com.dungeonmvc.utils.Vector2;
 
+import java.util.ArrayList;
+
 public class GameManager {
     private static GameManager instance;
 
-    Player player; // Mete al enemigo en un arraylist de y
-    Enemy enemy;
+    Player player;
+    ArrayList<Enemy> enemies;
     Board board;
 
     private GameManager() {
+        enemies = new ArrayList<>();
     }
 
     public static GameManager getInstance() {
@@ -25,8 +28,8 @@ public class GameManager {
         return this.player;
     }
 
-    public Enemy getEnemy() {
-        return this.enemy;
+    public ArrayList<Enemy> getEnemies() {
+        return this.enemies;
     }
 
     public Board getBoard() {
@@ -35,33 +38,29 @@ public class GameManager {
 
     public void newTurn(Direction direction) {
         player.move(direction);
-        enemy.moveTowardsPlayer(player);
-        if (player.getPosition().equals(enemy.getPosition())) {
-            player.interact(enemy);
+        for (Enemy enemy : enemies) {
+            enemy.moveTowardsPlayer(player);
+            if (player.getPosition().equals(enemy.getPosition())) {
+                player.interact(enemy);
+            }
         }
-            
-
-}
+    }
 
     public void testGame() {
         boolean[][] boardMatrix = {
                 { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
-                { true, false, false, false, true, false, false, false, false, false, false, false, false, false,
-                        true },
+                { true, false, false, false, true, false, false, false, false, false, false, false, false, false, true },
                 { true, false, true, false, true, false, true, true, true, true, true, true, false, true, true },
                 { true, false, true, false, true, false, false, false, false, false, false, false, false, false, true },
                 { true, false, true, false, true, false, true, true, true, true, true, true, false, true, true },
-                { true, false, false, false, true, false, false, false, false, false, false, false, false, false,
-                        true },
+                { true, false, false, false, true, false, false, false, false, false, false, false, false, false, true },
                 { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
                 { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
-                { true, false, false, false, true, false, false, false, false, false, false, false, false, false,
-                        true },
+                { true, false, false, false, true, false, false, false, false, false, false, false, false, false, true },
                 { true, false, true, false, true, false, true, true, true, true, true, true, false, true, true },
                 { true, false, true, false, true, false, false, false, false, false, false, false, false, false, true },
                 { true, false, true, false, true, false, true, true, true, true, true, true, false, true, true },
-                { true, false, false, false, true, false, false, false, false, false, false, false, false, false,
-                        true },
+                { true, false, false, false, true, false, false, false, false, false, false, false, false, false, true },
                 { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
                 { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true }
         };
@@ -77,7 +76,9 @@ public class GameManager {
 
         player = new Player("portrait", "player", "Paladin", 50.0, 1.3, 0.0, 1.0, 1.0, 1.0, "item7", "item6",
                 new Vector2(4, 0), board);
-        enemy = new Enemy("Roedor del Río", "rata", 10.0, 1.0, 0.0, 1.0, 1.0, new Vector2(0, 0), 3.0,board);
+        
+        enemies.add(new Enemy("Roedor del Río", "rata", 10.0, 1.0, 0.0, 1.0, 1.0, new Vector2(0, 0), 3.0, board));
+        enemies.add(new Enemy("Roedor del Río", "rata", 10.0, 1.0, 0.0, 1.0, 1.0, new Vector2(2, 4), 3.0, board));
 
         player.getInventory().addItem("item1");
         player.getInventory().addItem("item2");
