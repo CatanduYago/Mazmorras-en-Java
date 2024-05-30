@@ -1,8 +1,9 @@
 package com.dungeonmvc.models;
 
 import com.dungeonmvc.interfaces.Interactive;
+import com.dungeonmvc.utils.Vector2;
 
-public class Entities implements Interactive {
+public abstract class Entities implements Interactive {
     Double health;
     Double AD;
     Double AP;
@@ -11,8 +12,9 @@ public class Entities implements Interactive {
     String name;
     String image;
     Double perception;
+    Vector2 position;
 
-    public Entities(Double health, Double AD, Double AP, Double defense, Double speed, String name, String image, Double perception) {
+    public Entities(Double health, Double AD, Double AP, Double defense, Double speed, String name, String image, Double perception, Vector2 position) {
         this.health = health;
         this.AD = AD;
         this.AP = AP;
@@ -21,6 +23,7 @@ public class Entities implements Interactive {
         this.name = name;
         this.image = image;
         this.perception = perception;
+        this.position = position;
     }
 
     public double getHealth() {
@@ -88,6 +91,14 @@ public class Entities implements Interactive {
 
     public void setPerception(Double perception) {
         this.perception = perception;
+    }
+
+    public Vector2 getPosition() {
+        return this.position;
+    }
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
     }
 
     @Override

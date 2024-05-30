@@ -1,6 +1,8 @@
 package com.dungeonmvc.models;
 
 import java.util.ArrayList;
+
+import com.dungeonmvc.GameManager;
 import com.dungeonmvc.interfaces.Observer;
 import com.dungeonmvc.utils.DiceRoll;
 import com.dungeonmvc.utils.DiceRoll.Dice;
@@ -11,21 +13,18 @@ public class Player extends Entities {
     private String portrait;
     private String leftHand;
     private String rightHand;
-    private Vector2 position;
     private Inventory inventory;
     private ArrayList<String> resistencias;
     private Board board;
-    private Double maxHealth;
-
+Double maxHealth;
     public Player(String portrait, String image, String name, Double health, Double AD, Double AP, Double defense,
-            Double speed, Double perception, String leftHand, String rightHand, Vector2 start, Board board) {
-        super(health, AD, AP, defense, speed, name, image, perception);
+                  Double speed, Double perception, String leftHand, String rightHand, Vector2 start, Board board) {
+        super(health, AD, AP, defense, speed, name, image, perception, start);
         observers = new ArrayList<>();
-        this.maxHealth = health;
         this.portrait = portrait;
         this.leftHand = leftHand;
         this.rightHand = rightHand;
-        this.position = start;
+        this.maxHealth = health;
         this.inventory = new Inventory();
         this.resistencias = new ArrayList<>();
         this.board = board;
@@ -44,7 +43,13 @@ public class Player extends Entities {
     }
 
     public void notifyObservers() {
-        observers.forEach(x -> x.onChange());
+        observers.forEach(Observer::onChange);
+    }
+     public Double getMaxHealth() {
+        return this.maxHealth;
+    }
+    public void setMaxHealth(Double maxHealth) {
+        this.maxHealth = health;
     }
 
     public String getPortrait() {
@@ -78,31 +83,13 @@ public class Player extends Entities {
         return this.inventory;
     }
 
-    public Vector2 getPosition() {
-        return this.position;
-    }
-    public Double getMaxHealth() {
-        return this.maxHealth;
-    }
-
-    public int getX() {
-        return this.position.getX();
-    }
-
-    public int getY() {
-        return this.position.getY();
-    }
-
-    public void setPosition(Vector2 position) {
-        this.position = position;
-    }
-
     public void move(Direction direction) {
         Vector2 destination = getDestination(position, direction);
         if (destination.getX() >= 0 && destination.getX() < board.getSize() && destination.getY() >= 0
                 && destination.getY() < board.getSize()) {
             Cell cell = board.getCell(destination);
-            if (cell.getIsFloor() || cell.getIsDoor()) {
+            boolean isCellOccupied = GameManager.getInstance().getEnemies().stream().anyMatch(e -> e.getPosition().equals(destination));
+            if ((cell.getIsFloor() || cell.getIsDoor()) && !isCellOccupied) {
                 setPosition(destination);
                 board.notifyObservers();
             }
@@ -143,7 +130,7 @@ public class Player extends Entities {
         }
     }
     
-    public void attackEnemy(Enemy enemy) {
+    private void attackEnemy(Enemy enemy) {
         double damageDice = DiceRoll.roll(Dice.d6);
         double damage = this.getAD() + damageDice - enemy.getDefense();
         if (damage > 0) {
@@ -155,13 +142,13 @@ public class Player extends Entities {
     }
 
     public void receiveDamage(double damage) {
-        this.setHealth(this.getHealth() - damage);
-        System.out.println(this.getName() + " recibe " + damage + " de daño. Vida restante: " + this.getHealth());
-        if (this.getHealth() <= 0) {
-            System.out.println(this.getName() + " ha sido derrotado.");
-        }
-        notifyObservers();
+    this.setHealth(this.getHealth() - damage);
+    System.out.println(this.getName() + " recibe " + damage + " de daño. Vida restante: " + this.getHealth());
+    notifyObservers();
+    if (this.getHealth() <= 0) {
+        System.out.println(this.getName() + " ha sido derrotado.");
+        GameManager.getInstance().checkGameOver();
     }
+}
 
-    
 }

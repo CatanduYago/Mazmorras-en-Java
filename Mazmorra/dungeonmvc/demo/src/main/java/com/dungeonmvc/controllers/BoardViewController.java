@@ -4,6 +4,7 @@ import com.dungeonmvc.App;
 import com.dungeonmvc.GameManager;
 import com.dungeonmvc.interfaces.Observer;
 import com.dungeonmvc.models.Board;
+import com.dungeonmvc.models.Entities;
 import com.dungeonmvc.models.Enemy;
 import com.dungeonmvc.models.Player;
 import com.dungeonmvc.utils.Vector2;
@@ -16,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BoardViewController implements Observer {
     @FXML
@@ -27,8 +29,17 @@ public class BoardViewController implements Observer {
     private double cellSize;
     private double boardSize;
 
-    private ImageView playerImg;
-    private ArrayList<ImageView> enemyImgs;
+    private HashMap<Entities, ImageView> entityImages;
+
+    private static BoardViewController instance;
+
+    public BoardViewController() {
+        instance = this;
+    }
+
+    public static BoardViewController getInstance() {
+        return instance;
+    }
 
     @FXML
     private void initialize() {
@@ -66,26 +77,27 @@ public class BoardViewController implements Observer {
             }
         }
 
-        playerImg = new ImageView();
+        entityImages = new HashMap<>();
+
+        // Crear y configurar ImageView para el jugador
+        Player player = GameManager.getInstance().getPlayer();
+        ImageView playerImg = new ImageView();
         playerImg.setFitWidth(cellSize);
         playerImg.setFitHeight(cellSize);
-        playerImg.setImage(new Image(
-                App.class.getResource("images/" + GameManager.getInstance().getPlayer().getImage() + ".png")
-                        .toExternalForm(), cellSize, cellSize, true, false));
+        playerImg.setImage(new Image(App.class.getResource("images/" + player.getImage() + ".png").toExternalForm(), cellSize, cellSize, true, false));
         playerImg.setSmooth(false);
         pane.getChildren().add(playerImg);
+        entityImages.put(player, playerImg);
 
-        enemyImgs = new ArrayList<>();
+        // Crear y configurar ImageView para cada enemigo
         for (Enemy enemy : GameManager.getInstance().getEnemies()) {
             ImageView enemyImg = new ImageView();
             enemyImg.setFitWidth(cellSize);
             enemyImg.setFitHeight(cellSize);
-            enemyImg.setImage(new Image(
-                    App.class.getResource("images/" + enemy.getImage() + ".png")
-                            .toExternalForm(), cellSize, cellSize, true, false));
+            enemyImg.setImage(new Image(App.class.getResource("images/" + enemy.getImage() + ".png").toExternalForm(), cellSize, cellSize, true, false));
             enemyImg.setSmooth(false);
             pane.getChildren().add(enemyImg);
-            enemyImgs.add(enemyImg);
+            entityImages.put(enemy, enemyImg);
         }
 
         onChange();
@@ -93,17 +105,11 @@ public class BoardViewController implements Observer {
 
     @Override
     public void onChange() {
-        Vector2Double newPos = matrixToInterface(GameManager.getInstance().getPlayer().getPosition());
-        System.out.println(newPos);
-        playerImg.setLayoutX(newPos.getX());
-        playerImg.setLayoutY(newPos.getY());
-
-        ArrayList<Enemy> enemies = GameManager.getInstance().getEnemies();
-        for (int i = 0; i < enemies.size(); i++) {
-            Vector2Double newPosEnemy = matrixToInterface(enemies.get(i).getPosition());
-            System.out.println(newPosEnemy);
-            enemyImgs.get(i).setLayoutX(newPosEnemy.getX());
-            enemyImgs.get(i).setLayoutY(newPosEnemy.getY());
+        for (Entities entity : entityImages.keySet()) {
+            Vector2Double newPos = matrixToInterface(entity.getPosition());
+            ImageView imgView = entityImages.get(entity);
+            imgView.setLayoutX(newPos.getX());
+            imgView.setLayoutY(newPos.getY());
         }
     }
 
@@ -119,5 +125,12 @@ public class BoardViewController implements Observer {
 
     public void setBoardSize(double boardSize) {
         this.boardSize = boardSize;
+    }
+
+    public void updateEnemyImage(Enemy enemy) {
+        ImageView enemyImg = entityImages.get(enemy);
+        if (enemyImg != null) {
+            enemyImg.setImage(new Image(App.class.getResource("images/deadrat.png").toExternalForm(), cellSize, cellSize, true, false));
+        }
     }
 }

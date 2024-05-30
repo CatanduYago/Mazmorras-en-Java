@@ -1,5 +1,6 @@
 package com.dungeonmvc;
 
+import com.dungeonmvc.controllers.BoardViewController;
 import com.dungeonmvc.models.*;
 import com.dungeonmvc.models.Player.Direction;
 import com.dungeonmvc.utils.Vector2;
@@ -39,12 +40,19 @@ public class GameManager {
     public void newTurn(Direction direction) {
         player.move(direction);
         for (Enemy enemy : enemies) {
-            enemy.moveTowardsPlayer(player);
-            if (player.getPosition().equals(enemy.getPosition())) {
+            enemy.moveTowardsPlayer(player, enemies);
+            if (areAdjacent(player.getPosition(), enemy.getPosition())) {
                 player.interact(enemy);
             }
         }
     }
+    
+    private boolean areAdjacent(Vector2 pos1, Vector2 pos2) {
+        int dx = Math.abs(pos1.getX() - pos2.getX());
+        int dy = Math.abs(pos1.getY() - pos2.getY());
+        return (dx == 1 && dy == 0) || (dx == 0 && dy == 1);
+    }
+    
 
     public void testGame() {
         boolean[][] boardMatrix = {
@@ -86,5 +94,14 @@ public class GameManager {
         player.getInventory().addItem("item4");
         player.getInventory().addItem("item5");
         player.getInventory().addItem("item8");
+    }
+    public void notifyEnemyDefeated(Enemy enemy) {
+        BoardViewController.getInstance().updateEnemyImage(enemy);
+    }
+
+    public void checkGameOver() {
+        if (player.getHealth() <= 0) {
+            App.getInstance().showGameOver();
+        }
     }
 }

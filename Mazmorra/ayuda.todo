@@ -15,21 +15,24 @@
 ✔ Implementar BOss y su Herencia @low @done (5/16/2024, 5:19:19 PM)
 ✔ cambio de items del inventario ala mano @high @done (5/20/2024, 5:12:06 PM)
 ✔ Hacer sprite del enemigo @done (5/22/2024, 3:41:13 PM)
-
+✔ Implementar enemigos en el tablero @critical @done (5/30/2024, 9:38:15 AM)
+✔ sprite cofre, items, etc @critical @done (5/30/2024, 9:38:30 AM)
+✔ Crear pathfinding algorithm @critical @done (5/30/2024, 9:37:56 AM)
+✔ Leer guia tonoto @done (5/30/2024, 9:38:25 AM)
+☐ Crear otro fxml
 ☐ Crear la historia @low
 ☐ Crear objetos (artefactos, consumibles y equipables) @high
 ☐ añadir atributo interactuable a los objetos @high
 ☐ Crear Habilidades @high 
 ☐ Crear Resistencias @high
 ☐ Crear la interfaz de la historia @high
-☐ Crear pathfinding algorithm @critical 
 ☐ Crear generacion de terreno @critical 
 ☐ Crear fog of war @critical 
-☐ Implementar cofres y enemigos en el tablero @critical 
-☐ sprite cofre, items, etc @critical 
+☐ Implementar cofres 
+☐ Logica cofres
+☐ Logica puertas
 ☐ implementar las puertas en el tablero @critical
-☐ Crear otro fxml
 ☐ Boton rreiniciar logica
-☐ Leer guia tonoto
+
 
 

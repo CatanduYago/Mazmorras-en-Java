@@ -1,10 +1,10 @@
 package com.dungeonmvc;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,16 +15,17 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    private static App instance;
 
     @Override
     public void start(Stage stage) throws IOException {
+        instance = this;
         stage.setResizable(false);
         GameManager gm = GameManager.getInstance();
         gm.testGame();
         scene = new Scene(loadFXML("mainView"));
         stage.setScene(scene);
         stage.setTitle("Java y mazmorras");
-        stage.getIcons().add(new Image(App.class.getResource("images/logo.png").toExternalForm()));
         stage.show();
     }
 
@@ -35,6 +36,25 @@ public class App extends Application {
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
+    }
+
+    public static App getInstance() {
+        return instance;
+    }
+
+    public void showGameOver() {
+        System.out.println("Espabila tonto que se ha acabao");
+        Platform.exit();
+        restartGame();
+
+    }
+
+    private void restartGame() {
+        try {
+            start(new Stage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
