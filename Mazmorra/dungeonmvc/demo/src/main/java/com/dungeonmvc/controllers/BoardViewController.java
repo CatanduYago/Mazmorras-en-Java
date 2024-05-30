@@ -15,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,9 +50,15 @@ public class BoardViewController implements Observer {
     public void setUp() {
         board = GameManager.getInstance().getBoard();
         board.subscribe(this);
+
+        if (board == null) {
+            throw new IllegalStateException("Board is not initialized.");
+        }
+
         int cellNumber = board.getSize();
         cellSize = boardSize / cellNumber;
         System.out.println(cellSize);
+        
         for (int i = 0; i < cellNumber; i++) {
             grid.addRow(i);
             grid.addColumn(i);
@@ -59,10 +66,14 @@ public class BoardViewController implements Observer {
 
         for (int row = 0; row < cellNumber; row++) {
             for (int col = 0; col < cellNumber; col++) {
+                StackPane cellPane = new StackPane();
+                cellPane.setPrefSize(cellSize, cellSize);
+
                 ImageView boardImg = new ImageView();
                 boardImg.setFitWidth(cellSize);
                 boardImg.setFitHeight(cellSize);
                 boardImg.setSmooth(false);
+
                 if (board.isFloor(row, col)) {
                     boardImg.setImage(new Image(
                             App.class.getResource("images/" + board.getFloorImage() + ".png").toExternalForm(),
@@ -73,23 +84,30 @@ public class BoardViewController implements Observer {
                                     cellSize, cellSize, true, false));
                 }
 
-                grid.add(boardImg, row, col);
+                ImageView fogImg = new ImageView();
+                fogImg.setFitWidth(cellSize);
+                fogImg.setFitHeight(cellSize);
+                fogImg.setSmooth(false);
+                fogImg.setImage(new Image(App.class.getResource("images/fog.png").toExternalForm(), cellSize, cellSize, true, false));
+
+                cellPane.getChildren().addAll(boardImg, fogImg);
+                grid.add(cellPane, row, col);
             }
         }
 
         entityImages = new HashMap<>();
 
-        // Crear y configurar ImageView para el jugador
         Player player = GameManager.getInstance().getPlayer();
-        ImageView playerImg = new ImageView();
-        playerImg.setFitWidth(cellSize);
-        playerImg.setFitHeight(cellSize);
-        playerImg.setImage(new Image(App.class.getResource("images/" + player.getImage() + ".png").toExternalForm(), cellSize, cellSize, true, false));
-        playerImg.setSmooth(false);
-        pane.getChildren().add(playerImg);
-        entityImages.put(player, playerImg);
+        if (player != null) {
+            ImageView playerImg = new ImageView();
+            playerImg.setFitWidth(cellSize);
+            playerImg.setFitHeight(cellSize);
+            playerImg.setImage(new Image(App.class.getResource("images/" + player.getImage() + ".png").toExternalForm(), cellSize, cellSize, true, false));
+            playerImg.setSmooth(false);
+            pane.getChildren().add(playerImg);
+            entityImages.put(player, playerImg);
+        }
 
-        // Crear y configurar ImageView para cada enemigo
         for (Enemy enemy : GameManager.getInstance().getEnemies()) {
             ImageView enemyImg = new ImageView();
             enemyImg.setFitWidth(cellSize);
@@ -105,12 +123,28 @@ public class BoardViewController implements Observer {
 
     @Override
     public void onChange() {
+        Player player = GameManager.getInstance().getPlayer();
+        if (player == null) {
+            return;
+        }
+
+
         for (Entities entity : entityImages.keySet()) {
             Vector2Double newPos = matrixToInterface(entity.getPosition());
             ImageView imgView = entityImages.get(entity);
             imgView.setLayoutX(newPos.getX());
             imgView.setLayoutY(newPos.getY());
         }
+
+        for (int row = 0; row < board.getSize(); row++) {
+            for (int col = 0; col < board.getSize(); col++) {
+                StackPane cellPane = (StackPane) grid.getChildren().get(row * board.getSize() + col);
+                ImageView fogImg = (ImageView) cellPane.getChildren().get(1);  
+                fogImg.setVisible(!board.isVisible(row, col)&& !Entities.isVisible);
+            }
+        }
+        board.updateVisibility(player.getPosition(), player.getPerception());
+
     }
 
     @Override

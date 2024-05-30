@@ -4,6 +4,7 @@ import com.dungeonmvc.interfaces.Interactive;
 import com.dungeonmvc.utils.Vector2;
 
 public abstract class Entities implements Interactive {
+    public static boolean isVisible;
     Double health;
     Double AD;
     Double AP;

@@ -27,12 +27,18 @@
 ☐ Crear Resistencias @high
 ☐ Crear la interfaz de la historia @high
 ☐ Crear generacion de terreno @critical 
-☐ Crear fog of war @critical 
-☐ Implementar cofres 
-☐ Logica cofres
-☐ Logica puertas
+✔ Crear fog of war @critical @done (5/30/2024, 4:41:42 PM)
+☐ Arreglar fog of war con los enemigos @critical
+☐ Implementar cofres @high
+☐ Logica cofres @high
+☐ Logica puertas @low
 ☐ implementar las puertas en el tablero @critical
-☐ Boton rreiniciar logica
+☐ implementar armas en los ataques @high
+☐ Clase de entorno para cofres y puertas y en general 
+☐ quitar del turno a las ratas muretas @high
+☐ Poder Pisar los cadavares @high
+☐ Hacer algoritmo A* @high
+✔ Boton rreiniciar logica @done (5/30/2024, 4:25:03 PM)
 
 
 

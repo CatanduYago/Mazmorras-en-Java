@@ -6,7 +6,6 @@ import com.dungeonmvc.App;
 import com.dungeonmvc.GameManager;
 import com.dungeonmvc.models.Player.Direction;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -27,64 +26,62 @@ public class MainViewController {
 
     @FXML
     private void initialize() {
-        FXMLLoader boardLoader = new FXMLLoader(App.class.getResource("boardView.fxml"));
-        FXMLLoader inventoryLoader = new FXMLLoader(App.class.getResource("inventoryView.fxml"));
-        FXMLLoader playerLoader = new FXMLLoader(App.class.getResource("playerView.fxml"));
-        Pane boardView, inventoryView, playerView;
         try {
-            boardView = boardLoader.load();
-            inventoryView = inventoryLoader.load();
-            playerView = playerLoader.load();
-
+            FXMLLoader boardLoader = new FXMLLoader(App.class.getResource("boardView.fxml"));
+            Pane boardView = boardLoader.load();
             boardPane.getChildren().add(boardView);
-            inventoryPane.getChildren().add(inventoryView);
-            playerPane.getChildren().add(playerView);
-
             boardView.prefWidthProperty().bind(boardPane.widthProperty());
             boardView.prefHeightProperty().bind(boardPane.heightProperty());
             BoardViewController bvc = boardLoader.getController();
-            double boardSize = boardPane.getPrefHeight();
-            bvc.setBoardSize(boardSize);
+            bvc.setBoardSize(boardPane.getPrefHeight());
             bvc.setUp();
+
+            FXMLLoader inventoryLoader = new FXMLLoader(App.class.getResource("inventoryView.fxml"));
+            Pane inventoryView = inventoryLoader.load();
+            inventoryPane.getChildren().add(inventoryView);
+
+            FXMLLoader playerLoader = new FXMLLoader(App.class.getResource("playerView.fxml"));
+            Pane playerView = playerLoader.load();
+            playerPane.getChildren().add(playerView);
+
+            restartButton.setOnAction(actionEvent -> {
+                Stage primaryStage = (Stage) restartButton.getScene().getWindow();
+                try {
+                    FXMLLoader loader = new FXMLLoader(App.class.getResource("mainView.fxml"));
+                    Scene mainScene = new Scene(loader.load());
+                    primaryStage.setScene(mainScene);
+                    GameManager.getInstance().testGame();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            boardPane.setOnMouseClicked(event -> boardPane.requestFocus());
+
+            boardPane.setOnKeyPressed(event -> {
+                Direction direction = null;
+                if (event.getCode() == KeyCode.UP) {
+                    System.out.println("Tecla arriba presionada");
+                    direction = Direction.UP;
+                } else if (event.getCode() == KeyCode.DOWN) {
+                    System.out.println("Tecla abajo presionada");
+                    direction = Direction.DOWN;
+                } else if (event.getCode() == KeyCode.LEFT) {
+                    System.out.println("Tecla izquierda presionada");
+                    direction = Direction.LEFT;
+                } else if (event.getCode() == KeyCode.RIGHT) {
+                    System.out.println("Tecla derecha presionada");
+                    direction = Direction.RIGHT;
+                }
+                if (direction != null) {
+                    GameManager.getInstance().newTurn(direction);
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        restartButton.setOnAction(actionEvent -> {
-            Stage primaryStage = (Stage) restartButton.getScene().getWindow();
-            try {
-                FXMLLoader loader = new FXMLLoader(App.class.getResource("mainView.fxml"));
-                Scene mainScene = new Scene(loader.load());
-                primaryStage.setScene(mainScene);
-                GameManager.getInstance().testGame();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-    
-
-        boardPane.setOnMouseClicked(eventHandler -> {
-            boardPane.requestFocus();
-        });
-
-        boardPane.setOnKeyPressed(event -> {
-            Direction direction = null;
-            if (event.getCode() == KeyCode.UP) {
-                System.out.println("Tecla arriba presionada");
-                direction = Direction.UP;
-            } else if (event.getCode() == KeyCode.DOWN) {
-                System.out.println("Tecla abajo presionada");
-                direction = Direction.DOWN;
-            } else if (event.getCode() == KeyCode.LEFT) {
-                System.out.println("Tecla izquierda presionada");
-                direction = Direction.LEFT;
-            } else if (event.getCode() == KeyCode.RIGHT) {
-                System.out.println("Tecla derecha presionada");
-                direction = Direction.RIGHT;
-            }
-            GameManager.getInstance().newTurn(direction);
-        });
     }
+
     @FXML
     public void initializeAfterReset() {
         boardPane.requestFocus();

@@ -1,7 +1,6 @@
 package com.dungeonmvc;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,9 +15,11 @@ public class App extends Application {
 
     private static Scene scene;
     private static App instance;
+    private Stage stage;
 
     @Override
     public void start(Stage stage) throws IOException {
+        this.stage = stage;
         instance = this;
         stage.setResizable(false);
         GameManager gm = GameManager.getInstance();
@@ -43,14 +44,13 @@ public class App extends Application {
     }
 
     public void showGameOver() {
-        System.out.println("Espabila tonto que se ha acabao");
-        Platform.exit();
+        System.out.println("Game Over!");
         restartGame();
-
     }
 
     private void restartGame() {
         try {
+            stage.close();
             start(new Stage());
         } catch (IOException e) {
             e.printStackTrace();

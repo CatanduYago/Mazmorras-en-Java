@@ -40,10 +40,13 @@ public class GameManager {
     public void newTurn(Direction direction) {
         player.move(direction);
         for (Enemy enemy : enemies) {
-            enemy.moveTowardsPlayer(player, enemies);
+            if ((enemy.getHealth()>0)) {
+                enemy.moveTowardsPlayer(player, enemies);
             if (areAdjacent(player.getPosition(), enemy.getPosition())) {
                 player.interact(enemy);
             }
+            }
+            
         }
     }
     
