@@ -151,4 +151,16 @@ Double maxHealth;
     }
 }
 
+    public void useArtifact(Artifact artifact) {
+        // TODO: Implementar uso de artefactos
+    }
+
+    public void equipWeapon(Weapon weapon) {
+        // TODO: Implementar equipar armas
+    }
+
+    public void consume(Consumable consumable) {
+        // TODO: Implementar consumo de consumibles
+    }
+
 }

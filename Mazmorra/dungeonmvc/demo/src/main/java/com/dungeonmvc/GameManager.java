@@ -85,7 +85,7 @@ public class GameManager {
             }
         }
 
-        player = new Player("portrait", "player", "Paladin", 50.0, 1.3, 0.0, 1.0, 1.0, 1.0, "item7", "item6",
+        player = new Player("portrait", "player", "Paladin", 50.0, 1.3, 0.0, 1.0, 1.0, 1.0, "item8", "item6",
                 new Vector2(4, 0), board);
         
         enemies.add(new Enemy("Roedor del Río", "rata", 10.0, 1.0, 0.0, 1.0, 1.0, new Vector2(0, 0), 3.0, board));
@@ -96,7 +96,7 @@ public class GameManager {
         player.getInventory().addItem("item3");
         player.getInventory().addItem("item4");
         player.getInventory().addItem("item5");
-        player.getInventory().addItem("item8");
+        player.getInventory().addItem("item7");
     }
     public void notifyEnemyDefeated(Enemy enemy) {
         BoardViewController.getInstance().updateEnemyImage(enemy);

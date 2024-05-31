@@ -44,7 +44,7 @@ public class App extends Application {
     }
 
     public void showGameOver() {
-        System.out.println("Game Over!");
+        System.out.println("Game Over");
         restartGame();
     }
 
