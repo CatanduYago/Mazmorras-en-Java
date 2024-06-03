@@ -16,9 +16,11 @@ public class Player extends Entities {
     private Inventory inventory;
     private ArrayList<String> resistencias;
     private Board board;
-Double maxHealth;
+    Double maxHealth;
+    private boolean isDead;
+
     public Player(String portrait, String image, String name, Double health, Double AD, Double AP, Double defense,
-                  Double speed, Double perception, String leftHand, String rightHand, Vector2 start, Board board) {
+            Double speed, Double perception, String leftHand, String rightHand, Vector2 start, Board board) {
         super(health, AD, AP, defense, speed, name, image, perception, start);
         observers = new ArrayList<>();
         this.portrait = portrait;
@@ -28,10 +30,16 @@ Double maxHealth;
         this.inventory = new Inventory();
         this.resistencias = new ArrayList<>();
         this.board = board;
+        this.isDead = false;
+
     }
 
     public enum Direction {
         UP, RIGHT, DOWN, LEFT
+    }
+
+    public boolean isDead() {
+        return isDead;
     }
 
     public void subscribe(Observer observer) {
@@ -45,9 +53,11 @@ Double maxHealth;
     public void notifyObservers() {
         observers.forEach(Observer::onChange);
     }
-     public Double getMaxHealth() {
+
+    public Double getMaxHealth() {
         return this.maxHealth;
     }
+
     public void setMaxHealth(Double maxHealth) {
         this.maxHealth = health;
     }
@@ -84,11 +94,14 @@ Double maxHealth;
     }
 
     public void move(Direction direction) {
+        if (isDead) return; 
+
         Vector2 destination = getDestination(position, direction);
         if (destination.getX() >= 0 && destination.getX() < board.getSize() && destination.getY() >= 0
                 && destination.getY() < board.getSize()) {
             Cell cell = board.getCell(destination);
-            boolean isCellOccupied = GameManager.getInstance().getEnemies().stream().anyMatch(e -> e.getPosition().equals(destination));
+            boolean isCellOccupied = GameManager.getInstance().getEnemies().stream()
+                    .anyMatch(e -> e.getPosition().equals(destination));
             if ((cell.getIsFloor() || cell.getIsDoor()) && !isCellOccupied) {
                 setPosition(destination);
                 board.notifyObservers();
@@ -129,7 +142,7 @@ Double maxHealth;
             }
         }
     }
-    
+
     private void attackEnemy(Enemy enemy) {
         double damageDice = DiceRoll.roll(Dice.d6);
         double damage = this.getAD() + damageDice - enemy.getDefense();
@@ -142,14 +155,16 @@ Double maxHealth;
     }
 
     public void receiveDamage(double damage) {
-    this.setHealth(this.getHealth() - damage);
-    System.out.println(this.getName() + " recibe " + damage + " de daño. Vida restante: " + this.getHealth());
-    notifyObservers();
-    if (this.getHealth() <= 0) {
-        System.out.println(this.getName() + " ha sido derrotado.");
-        GameManager.getInstance().checkGameOver();
+        this.setHealth(this.getHealth() - damage);
+        System.out.println(this.getName() + " recibe " + damage + " de daño. Vida restante: " + this.getHealth());
+        notifyObservers();
+        if (this.getHealth() <= 0) {
+            System.out.println(this.getName() + " ha sido derrotado.");
+            GameManager.getInstance().notifyPlayerDefeated(this);
+            GameManager.getInstance().checkGameOver();
+
+        }
     }
-}
 
     public void useArtifact(Artifact artifact) {
         // TODO: Implementar uso de artefactos

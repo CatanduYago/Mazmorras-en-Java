@@ -23,8 +23,9 @@
 ✔ Crear objetos (artefactos, consumibles y equipables) @high @done (5/31/2024, 9:36:22 AM)
 ✔ añadir atributo interactuable a los objetos @high @done (5/31/2024, 9:39:07 AM)
 ✔ quitar del turno a las ratas muretas @high @done (5/31/2024, 8:59:13 AM)
+✔ Poder Pisar los cadavares @high @done (6/3/2024, 5:13:33 PM)
 
-☐ Crear otro fxml
+☐ Crear otro fxml  
 ☐ Crear la historia @low
 ☐ Crear Habilidades @high 
 ☐ Crear Resistencias @high
@@ -37,8 +38,10 @@
 ☐ implementar las puertas en el tablero @critical
 ☐ implementar armas en los ataques @high
 ☐ Clase de entorno para cofres y puertas y en general 
-☐ Poder Pisar los cadavares @high
 ☐ Hacer algoritmo A* @high
+☐ Tablero por fichero @tag
+
+☐ Preguntar a pablo por las recuperacuines de programacions
 
 
 

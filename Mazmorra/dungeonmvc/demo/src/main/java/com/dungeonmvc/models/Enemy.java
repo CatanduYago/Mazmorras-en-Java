@@ -97,6 +97,8 @@ public class Enemy extends Entities {
             this.isDead = true;
             this.setImage("deadrat");  
             GameManager.getInstance().notifyEnemyDefeated(this);
+            GameManager.getInstance().getEnemies().remove(this);
+
         }
     }
 

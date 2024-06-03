@@ -48,7 +48,7 @@ public class App extends Application {
         restartGame();
     }
 
-    private void restartGame() {
+    public void restartGame() {
         try {
             stage.close();
             start(new Stage());

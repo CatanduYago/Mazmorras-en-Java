@@ -85,26 +85,34 @@ public class GameManager {
             }
         }
 
-        player = new Player("portrait", "player", "Paladin", 50.0, 1.3, 0.0, 1.0, 1.0, 1.0, "item8", "item6",
+        player = new Player("portrait", "player", "Paladin", 25.0, 1.3, 0.0, 1.0, 1.0, 1.0, "dpickaxe", "item6",
                 new Vector2(4, 0), board);
         
         enemies.add(new Enemy("Roedor del Río", "rata", 10.0, 1.0, 0.0, 1.0, 1.0, new Vector2(0, 0), 3.0, board));
         enemies.add(new Enemy("Roedor del Río", "rata", 10.0, 1.0, 0.0, 1.0, 1.0, new Vector2(2, 4), 3.0, board));
 
+        player.getInventory().addItem("coconut");
+        player.getInventory().addItem("shit");
+        player.getInventory().addItem("syringe");
         player.getInventory().addItem("item1");
         player.getInventory().addItem("item2");
         player.getInventory().addItem("item3");
         player.getInventory().addItem("item4");
-        player.getInventory().addItem("item5");
-        player.getInventory().addItem("item7");
+        
     }
     public void notifyEnemyDefeated(Enemy enemy) {
         BoardViewController.getInstance().updateEnemyImage(enemy);
+    }
+    public void notifyPlayerDefeated(Player player) {
+        BoardViewController.getInstance().updatePlayerImage(player);
+
     }
 
     public void checkGameOver() {
         if (player.getHealth() <= 0) {
             App.getInstance().showGameOver();
+
+
         }
     }
 }

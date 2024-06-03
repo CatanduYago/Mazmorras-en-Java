@@ -44,17 +44,8 @@ public class MainViewController {
             Pane playerView = playerLoader.load();
             playerPane.getChildren().add(playerView);
 
-            restartButton.setOnAction(actionEvent -> {
-                Stage primaryStage = (Stage) restartButton.getScene().getWindow();
-                try {
-                    FXMLLoader loader = new FXMLLoader(App.class.getResource("mainView.fxml"));
-                    Scene mainScene = new Scene(loader.load());
-                    primaryStage.setScene(mainScene);
-                    GameManager.getInstance().testGame();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
+        
+           
 
             boardPane.setOnMouseClicked(event -> boardPane.requestFocus());
 

@@ -73,7 +73,6 @@ public class BoardViewController implements Observer {
 
         entityImages = new HashMap<>();
 
-        // Crear y configurar ImageView para el jugador
         Player player = GameManager.getInstance().getPlayer();
         ImageView playerImg = new ImageView();
         playerImg.setFitWidth(cellSize);
@@ -83,7 +82,6 @@ public class BoardViewController implements Observer {
         pane.getChildren().add(playerImg);
         entityImages.put(player, playerImg);
 
-        // Crear y configurar ImageView para cada enemigo
         for (Enemy enemy : GameManager.getInstance().getEnemies()) {
             ImageView enemyImg = new ImageView();
             enemyImg.setFitWidth(cellSize);
@@ -123,6 +121,13 @@ public class BoardViewController implements Observer {
         ImageView enemyImg = entityImages.get(enemy);
         if (enemyImg != null) {
             enemyImg.setImage(new Image(App.class.getResource("images/deadrat.png").toExternalForm(), cellSize, cellSize, true, false));
+        }
+    }
+
+    public void updatePlayerImage(Player player) {
+        ImageView playerImg = entityImages.get(player);
+        if (playerImg != null) {
+            playerImg.setImage(new Image(App.class.getResource("images/playerdead.png").toExternalForm(), cellSize, cellSize, true, false));
         }
     }
 }
