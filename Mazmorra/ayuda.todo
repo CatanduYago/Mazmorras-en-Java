@@ -24,6 +24,8 @@
 ✔ añadir atributo interactuable a los objetos @high @done (5/31/2024, 9:39:07 AM)
 ✔ quitar del turno a las ratas muretas @high @done (5/31/2024, 8:59:13 AM)
 ✔ Poder Pisar los cadavares @high @done (6/3/2024, 5:13:33 PM)
+✔ Implementar cofres @high @done (6/3/2024, 8:07:20 PM)
+✔ Logica cofres @high @done (6/3/2024, 8:07:21 PM)
 
 ☐ Crear otro fxml  
 ☐ Crear la historia @low
@@ -32,8 +34,7 @@
 ☐ Crear la interfaz de la historia @high
 ☐ Crear generacion de terreno @critical 
 ☐ Crear fog of war @critical
-☐ Implementar cofres @high
-☐ Logica cofres @high
+
 ☐ Logica puertas @low
 ☐ implementar las puertas en el tablero @critical
 ☐ implementar armas en los ataques @high

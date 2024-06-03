@@ -21,7 +21,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         this.stage = stage;
         instance = this;
-        stage.setResizable(false);
+        stage.setResizable(true);
         GameManager gm = GameManager.getInstance();
         gm.testGame();
         scene = new Scene(loadFXML("mainView"));

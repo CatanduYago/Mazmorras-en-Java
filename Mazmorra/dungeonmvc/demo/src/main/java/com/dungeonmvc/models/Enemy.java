@@ -30,7 +30,8 @@ public class Enemy extends Entities {
     }
 
     public void moveTowardsPlayer(Player player, ArrayList<Enemy> enemies) {
-        if (isDead) return; 
+        if (isDead)
+            return;
 
         if (isWithinDistance(player, this.getPerception())) {
             Direction direction = getDirectionTowardsPlayer(player);
@@ -95,9 +96,8 @@ public class Enemy extends Entities {
         if (this.getHealth() <= 0) {
             System.out.println(this.getName() + " ha sido derrotado.");
             this.isDead = true;
-            this.setImage("deadrat");  
+            this.setImage("deadrat");
             GameManager.getInstance().notifyEnemyDefeated(this);
-            GameManager.getInstance().getEnemies().remove(this);
 
         }
     }

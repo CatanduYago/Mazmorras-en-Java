@@ -1,3 +1,9 @@
 {
-    "java.debug.settings.onBuildFailureProceed": true
+    "java.debug.settings.onBuildFailureProceed": true,
+    "java.debug.settings.stepping.skipClasses": [
+
+    ],
+    "java.jdt.ls.java.home": "",
+    "maven.terminal.useJavaHome": true,
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

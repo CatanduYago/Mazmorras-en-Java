@@ -3,6 +3,7 @@ import com.dungeonmvc.App;
 import com.dungeonmvc.GameManager;
 import com.dungeonmvc.interfaces.Observer;
 import com.dungeonmvc.models.Board;
+import com.dungeonmvc.models.Chest;
 import com.dungeonmvc.models.Entities;
 import com.dungeonmvc.models.Enemy;
 import com.dungeonmvc.models.Player;
@@ -27,7 +28,7 @@ public class BoardViewController implements Observer {
     private double boardSize;
 
     private HashMap<Entities, ImageView> entityImages;
-
+ private HashMap<Chest, ImageView> chestImages;
     private static BoardViewController instance;
 
     public BoardViewController() {
@@ -92,6 +93,17 @@ public class BoardViewController implements Observer {
             entityImages.put(enemy, enemyImg);
         }
 
+         chestImages = new HashMap<>();
+        for (Chest chest : GameManager.getInstance().getChests()) {
+            ImageView chestImg = new ImageView();
+            chestImg.setFitWidth(cellSize);
+            chestImg.setFitHeight(cellSize);
+            chestImg.setImage(new Image(App.class.getResource("images/" + chest.getImage() + ".png").toExternalForm(), cellSize, cellSize, true, false));
+            chestImg.setSmooth(false);
+            pane.getChildren().add(chestImg);
+            chestImages.put(chest, chestImg);
+        }
+
         onChange();
     }
 
@@ -102,6 +114,21 @@ public class BoardViewController implements Observer {
             ImageView imgView = entityImages.get(entity);
             imgView.setLayoutX(newPos.getX());
             imgView.setLayoutY(newPos.getY());
+        }
+
+        for (Chest chest : chestImages.keySet()) {
+            Vector2Double newPos = matrixToInterface(chest.getPosition());
+            ImageView imgView = chestImages.get(chest);
+            imgView.setLayoutX(newPos.getX());
+            imgView.setLayoutY(newPos.getY());
+            imgView.setImage(new Image(App.class.getResource("images/" + chest.getImage() + ".png").toExternalForm(), cellSize, cellSize, true, false));
+        }
+    }
+
+    public void updateChestImage(Chest chest) {
+        ImageView chestImg = chestImages.get(chest);
+        if (chestImg != null) {
+            chestImg.setImage(new Image(App.class.getResource("images/openchest.png").toExternalForm(), cellSize, cellSize, true, false));
         }
     }
 
