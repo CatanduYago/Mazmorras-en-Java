@@ -1,0 +1,471 @@
+{
+  "player": {
+    "portrait": "portrait",
+    "image": "player",
+    "name": "Paladin",
+    "maxHP": 100,
+    "hp": 85,
+    "strength": 20,
+    "defense": 15,
+    "speed": 10,
+    "leftHand": {
+      "name": "Espadon del caballero lobo",
+      "diceQuantity": 2,
+      "dice": {
+        "sides": 6
+      },
+      "habilidades": ["contundente", "magia"]
+    },
+    "rightHand": {
+      "name": "Estoque llameante",
+      "diceQuantity": 1,
+      "dice": {
+        "sides": 4
+      },
+      "habilidades": ["perforante", "fuego"]
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "resistencias": {
+      "letal": "inmune",
+      "fuego": "absorbente",
+      "magia": "resistente"
+    }
+  },
+  "enemies": [
+    {
+      "image": "enemy1Image",
+      "name": "Goblin",
+      "maxHP": 30,
+      "hp": 30,
+      "strength": 10,
+      "defense": 5,
+      "speed": 12,
+      "perception": 8,
+      "diceQuantity": 1,
+      "damage": {
+        "sides": 6
+      },
+      "position": {
+        "x": 5,
+        "y": 5
+      },
+      "resistencias": {
+        "cortante": "vulnerable",
+        "contundente": "resistente"
+      },
+      "habilidades": ["perforante", "magia"]
+    },
+    {
+      "image": "enemy2Image",
+      "name": "Orc",
+      "maxHP": 60,
+      "hp": 45,
+      "strength": 15,
+      "defense": 10,
+      "speed": 8,
+      "perception": 6,
+      "diceQuantity": 2,
+      "damage": {
+        "sides": 8
+      },
+      "position": {
+        "x": 8,
+        "y": 8
+      },
+      "resistencias": {
+        "fuego": "fragil",
+        "cortante": "irrompible"
+      },
+      "habilidades": ["contundente", "abrir"]
+    },
+    {
+      "image": "enemy3Image",
+      "name": "Skeleton",
+      "maxHP": 40,
+      "hp": 35,
+      "strength": 12,
+      "defense": 8,
+      "speed": 10,
+      "perception": 5,
+      "diceQuantity": 1,
+      "damage": {
+        "sides": 6
+      },
+      "position": {
+        "x": 10,
+        "y": 3
+      },
+      "resistencias": {
+        "perforante": "irrompible",
+        "contundente": "fragil"
+      },
+      "habilidades": ["perforante", "abrir"]
+    },
+    {
+      "image": "enemy4Image",
+      "name": "Dark Mage",
+      "maxHP": 50,
+      "hp": 50,
+      "strength": 8,
+      "defense": 5,
+      "speed": 14,
+      "perception": 10,
+      "diceQuantity": 3,
+      "damage": {
+        "sides": 4
+      },
+      "position": {
+        "x": 12,
+        "y": 7
+      },
+      "resistencias": {
+        "magia": "inmune",
+        "contundente": "resistente"
+      },
+      "habilidades": ["magia", "fuego"]
+    }
+  ],
+  "environment": [
+    {
+      "image": "treeImage",
+      "name": "Ancient Tree",
+      "maxHP": 50,
+      "hp": 50,
+      "barrier": 10,
+      "position": {
+        "x": 3,
+        "y": 4
+      },
+      "resistencias": {
+        "contundente": "irrompible",
+        "perforante": "irrompible",
+        "fuego": "fragil"
+      }
+    },
+    {
+      "image": "doorImage",
+      "name": "Wooden Door",
+      "maxHP": 20,
+      "hp": 20,
+      "barrier": 5,
+      "position": {
+        "x": 6,
+        "y": 9
+      },
+      "resistencias": {
+        "contundente": "vulnerable",
+        "cortante": "resistente"
+      }
+    },
+    {
+      "image": "chestImage",
+      "name": "Treasure Chest",
+      "maxHP": 10,
+      "hp": 10,
+      "barrier": 0,
+      "position": {
+        "x": 7,
+        "y": 11
+      },
+      "resistencias": {
+        "letal": "irrompible",
+        "fuego": "fragil"
+      }
+    },
+    {
+      "image": "stoneImage",
+      "name": "Large Boulder",
+      "maxHP": 100,
+      "hp": 100,
+      "barrier": 20,
+      "position": {
+        "x": 2,
+        "y": 6
+      },
+      "resistencias": {
+        "letal": "irrompible",
+        "fuego": "resistente"
+      }
+    },
+    {
+      "image": "trapImage",
+      "name": "Spike Trap",
+      "maxHP": 15,
+      "hp": 15,
+      "barrier": 0,
+      "position": {
+        "x": 4,
+        "y": 8
+      },
+      "resistencias": {
+        "contundente": "vulnerable",
+        "magia": "resistente"
+      }
+    }
+  ],
+  "board": {
+    "floorImage": "floorTexture",
+    "wallImage": "wallTexture",
+    "size": 15,
+    "cells": [
+      [
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true}
+      ],
+      [
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": true}
+      ],
+      [
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": true}
+      ],
+      [
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": true}
+      ],
+      [
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": true}
+      ],
+      [
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": true}
+      ],
+      [
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true}
+      ],
+      [
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true}
+      ],
+      [
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": true}
+      ],
+      [
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": true}
+      ],
+      [
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": true}
+      ],
+      [
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": true}
+      ],
+      [
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": true},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": false},
+        {"isFloor": true}
+      ],
+      [
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true}
+      ],
+      [
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true},
+        {"isFloor": true}
+      ]
+    ]
+  }
+}
