@@ -33,11 +33,11 @@ public class Chest {
     public void open(Player player) {
         if (!isOpen) {
             isOpen = true;
-            String[] items = {"coconut", "shit", "syringe", "item1", "item2", "item3", "item4"};
+            String[] items = {"coconut", "shit", "syringe", "item1", "item2", "item3", "item4","item5","item6","dpickaxe"};
             Random random = new Random();
             String randomItem = items[random.nextInt(items.length)];
             player.getInventory().addItem(randomItem);
-            System.out.println("Chest opened! Added " + randomItem + " to inventory.");
+            System.out.println("Has abierto un cofre,  " + randomItem + " se ha añadido a tu inventario!");
             GameManager.getInstance().notifyChestOpened(this);
         }
     }

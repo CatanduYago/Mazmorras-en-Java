@@ -1,8 +1,10 @@
 package com.dungeonmvc.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.dungeonmvc.GameManager;
+import com.dungeonmvc.controllers.InventoryViewController;
 import com.dungeonmvc.interfaces.Observer;
 import com.dungeonmvc.utils.DiceRoll;
 import com.dungeonmvc.utils.DiceRoll.Dice;
@@ -14,13 +16,14 @@ public class Player extends Entities {
     private String leftHand;
     private String rightHand;
     private Inventory inventory;
-    private ArrayList<String> resistencias;
+    private HashMap<Skill.Type, Resistance> resistances;
     private Board board;
-    Double maxHealth;
+    private double maxHealth;
     private boolean isDead;
+    private Weapon equippedWeapon;
 
-    public Player(String portrait, String image, String name, Double health, Double AD, Double AP, Double defense,
-            Double speed, Double perception, String leftHand, String rightHand, Vector2 start, Board board) {
+    public Player(String portrait, String image, String name, double health, double AD, double AP, double defense,
+            double speed, double perception, String leftHand, String rightHand, Vector2 start, Board board) {
         super(health, AD, AP, defense, speed, name, image, perception, start);
         observers = new ArrayList<>();
         this.portrait = portrait;
@@ -28,10 +31,9 @@ public class Player extends Entities {
         this.rightHand = rightHand;
         this.maxHealth = health;
         this.inventory = new Inventory();
-        this.resistencias = new ArrayList<>();
+        this.resistances = new HashMap<>();
         this.board = board;
         this.isDead = false;
-
     }
 
     public enum Direction {
@@ -93,8 +95,18 @@ public class Player extends Entities {
         return this.inventory;
     }
 
+    public void setResistance(Skill.Type skillType, Resistance resistance) {
+        resistances.put(skillType, resistance);
+    }
+
+    public double modifyDamage(Skill.Type skillType, double damage) {
+        Resistance resistance = resistances.get(skillType);
+        return resistance != null ? resistance.modifyDamage(damage) : damage;
+    }
+
     public void move(Direction direction) {
-        if (isDead) return; 
+        if (isDead)
+            return;
 
         Vector2 destination = getDestination(position, direction);
         if (destination.getX() >= 0 && destination.getX() < board.getSize() && destination.getY() >= 0
@@ -143,14 +155,32 @@ public class Player extends Entities {
         }
     }
 
+    public void equipWeapon(Weapon weapon) {
+        this.equippedWeapon = weapon;
+        System.out.println(this.getName() + " ha equipado " + weapon.getName());
+        notifyObservers();
+    }
+
     private void attackEnemy(Enemy enemy) {
         double damageDice = DiceRoll.roll(Dice.d6);
-        double damage = this.getAD() + damageDice - enemy.getDefense();
-        if (damage > 0) {
-            enemy.receiveDamage(damage);
-            System.out.println(this.getName() + " ataca haciendo " + damage + " de daño a " + enemy.getName());
+        double weaponDamage = (equippedWeapon != null) ? equippedWeapon.getAttackBonus() : 0;
+        double baseDamage = this.getAD() + weaponDamage + damageDice;
+
+        if (equippedWeapon != null) {
+            for (Skill skill : equippedWeapon.getSkills()) {
+                double damage = enemy.modifyDamage(skill.getType(), baseDamage);
+                if (damage > 0) {
+                    enemy.receiveDamage(damage);
+                    System.out.println(this.getName() + " ataca haciendo " + damage + " de daño " +
+                            "con habilidad " + skill.getType() + " a " + enemy.getName());
+                } else {
+                    System.out.println(this.getName() + " ataca pero no le hace daño " +
+                            "con habilidad " + skill.getType() + " a " + enemy.getName());
+                }
+            }
         } else {
-            System.out.println(this.getName() + " ataca pero no le hace daño a " + enemy.getName());
+            enemy.receiveDamage(baseDamage);
+            System.out.println(this.getName() + " ataca haciendo " + baseDamage + " de daño a " + enemy.getName());
         }
     }
 
@@ -170,12 +200,33 @@ public class Player extends Entities {
         // TODO: Implementar uso de artefactos
     }
 
-    public void equipWeapon(Weapon weapon) {
-        // TODO: Implementar equipar armas
-    }
-
     public void consume(Consumable consumable) {
-        // TODO: Implementar consumo de consumibles
+        String itemName = consumable.getName().toLowerCase();
+
+        switch (itemName) {
+            case "coconut":
+                double effect = 5.0;
+                this.setHealth(Math.min(this.getHealth() + effect, this.maxHealth));
+                System.out.println(this.getName() + " consume un " + itemName + " y recupera " + effect + " de vida.");
+                break;
+            case "shit":
+                double effectcaca = 5.0;
+                this.setHealth(this.getHealth() - effectcaca);
+                System.out.println(this.getName() + " consume " + itemName + " y pierde " + effectcaca + " de vida.");
+                break;
+            case "syringe":
+                double effectsyringe = 15.0;
+
+                this.setHealth(Math.min(this.getHealth() + effectsyringe, this.maxHealth));
+                System.out.println(
+                        this.getName() + " consume un " + itemName + " y recupera " + effectsyringe + " de vida.");
+                break;
+            default:
+                System.out.println(this.getName() + " consume un " + itemName + " sin efecto.");
+                break;
+        }
+        notifyObservers();
+
     }
 
 }

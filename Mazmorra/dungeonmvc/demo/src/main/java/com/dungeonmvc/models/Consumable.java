@@ -1,15 +1,18 @@
 package com.dungeonmvc.models;
 
 public class Consumable extends Item {
-    private double healthBonus;
+    private double effect; 
 
-    public Consumable(String name, String description, double healthBonus) {
+    public Consumable(String name, String description, double effect) {
         super(name, description);
-        this.healthBonus = healthBonus;
+        this.effect = effect;
     }
 
-    public double getHealthBonus() {
-        return healthBonus;
+    public double getEffect() {
+        return effect;
+    }
+    public void setEffect(double effect) {
+        this.effect = effect;
     }
 
     @Override

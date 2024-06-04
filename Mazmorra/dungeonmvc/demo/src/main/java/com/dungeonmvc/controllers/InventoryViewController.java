@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import com.dungeonmvc.models.Consumable;
 
 public class InventoryViewController implements Observer {
 
@@ -52,7 +53,7 @@ public class InventoryViewController implements Observer {
         updateInventoryView();
     }
 
-    private void updateInventoryView() {
+    public void updateInventoryView() {
         grid.getChildren().clear();
 
         for (int i = 0; i < inventory.getInventorySize(); i++) {
@@ -106,9 +107,11 @@ public class InventoryViewController implements Observer {
 
     public void consumeItem() {
         if (selectedItemIndex != -1) {
+            Player player = GameManager.getInstance().getPlayer();
             String selectedItem = inventory.getItem(selectedItemIndex);
+            Consumable consumableItem = new Consumable(selectedItem, selectedItem, cellSize); 
             inventory.removeItem(selectedItemIndex);
-            System.out.println("Objeto consumido: " + selectedItem);
+            player.consume(consumableItem);
             updateInventoryView();
         }
     }

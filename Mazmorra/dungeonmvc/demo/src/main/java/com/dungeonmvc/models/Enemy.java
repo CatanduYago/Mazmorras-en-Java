@@ -6,12 +6,14 @@ import com.dungeonmvc.utils.DiceRoll.Dice;
 import com.dungeonmvc.utils.Vector2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Enemy extends Entities {
     private Board board;
     private Random random;
     private boolean isDead;
+    private HashMap<Skill.Type, Resistance> resistances;
 
     public Enemy(String name, String image, Double health, Double AD, Double AP, Double defense, Double speed,
             Vector2 start, Double perception, Board board) {
@@ -19,6 +21,8 @@ public class Enemy extends Entities {
         this.board = board;
         this.random = new Random();
         this.isDead = false;
+                this.resistances = new HashMap<>();
+
     }
 
     public enum Direction {
@@ -28,7 +32,14 @@ public class Enemy extends Entities {
     public boolean isDead() {
         return isDead;
     }
+    public void setResistance(Skill.Type skillType, Resistance resistance) {
+        resistances.put(skillType, resistance);
+    }
 
+    public double modifyDamage(Skill.Type skillType, double damage) {
+        Resistance resistance = resistances.get(skillType);
+        return resistance != null ? resistance.modifyDamage(damage) : damage;
+    }
     public void moveTowardsPlayer(Player player, ArrayList<Enemy> enemies) {
         if (isDead)
             return;

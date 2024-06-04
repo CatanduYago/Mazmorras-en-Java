@@ -26,21 +26,23 @@
 ✔ Poder Pisar los cadavares @high @done (6/3/2024, 5:13:33 PM)
 ✔ Implementar cofres @high @done (6/3/2024, 8:07:20 PM)
 ✔ Logica cofres @high @done (6/3/2024, 8:07:21 PM)
-
-☐ Crear otro fxml  
-☐ Crear la historia @low
-☐ Crear Habilidades @high 
-☐ Crear Resistencias @high
-☐ Crear la interfaz de la historia @high
-☐ Crear generacion de terreno @critical 
+✔ Error a la hora de matar un personaje (debuggear) @high @done (6/4/2024, 9:22:36 AM)
+✔ implementar armas en los ataques @high @done (6/4/2024, 9:22:44 AM)
+✔ Crear Habilidades @high @done (6/4/2024, 11:53:34 AM)
+✔ Crear Resistencias @high @done (6/4/2024, 11:53:33 AM)
+✔ Logica items consumibles @done (6/4/2024, 2:30:21 PM)
 ☐ Crear fog of war @critical
 
-☐ Logica puertas @low
-☐ implementar las puertas en el tablero @critical
-☐ implementar armas en los ataques @high
-☐ Clase de entorno para cofres y puertas y en general 
-☐ Hacer algoritmo A* @high
-☐ Tablero por fichero @tag
-☐ Mirar ultimo punto apuntes para implementar el tablero por ficheros @high
-☐ Error a la hora de matar un personaje (debuggear) @high
+
+
+✘ Crear otro fxml @cancelled (6/4/2024, 9:23:19 AM)
+✘ Crear la historia @low @cancelled (6/4/2024, 9:23:19 AM)
+✘ Crear la interfaz de la historia @high @cancelled (6/4/2024, 9:23:23 AM)
+✘ Crear generacion de terreno @critical @cancelled (6/4/2024, 9:23:21 AM)
+✘ Logica puertas @low @cancelled (6/4/2024, 9:23:26 AM)
+✘ implementar las puertas en el tablero @critical @cancelled (6/4/2024, 9:23:27 AM)
+✘ Clase de entorno para cofres y puertas y en general @cancelled (6/4/2024, 9:23:29 AM)
+✘ Hacer algoritmo A* @high @cancelled (6/4/2024, 9:23:16 AM)
+✘ Tablero por fichero @tag @cancelled (6/4/2024, 9:22:41 AM)
+✘ Mirar ultimo punto apuntes para implementar el tablero por ficheros @high @cancelled (6/4/2024, 9:01:57 AM)
 
