@@ -103,7 +103,7 @@ public class GameManager {
             board.newCell(new Vector2(i, j), isFloor, isDoor);
         }
     }
-        player = new Player("portrait", "player2", "HunterHansolo", 25.0, 1.3, 0.0, 1.0, 1.0, 1.0, "dpickaxe", "item6",
+        player = new Player("portrait", "player", "HunterHansolo", 25.0, 1.3, 0.0, 1.0, 1.0, 1.0, "dpickaxe", "item6",
                 new Vector2(4, 0), board);
         player.setResistance(Skill.Type.CORTANTE,new Resistance(Resistance.Type.RESISTENTE));
         
@@ -137,7 +137,7 @@ public class GameManager {
         player.getInventory().addItem("item1");
         player.getInventory().addItem("item2");
         player.getInventory().addItem("item3");
-        player.getInventory().addItem("item4");
+        player.getInventory().addItem("dl44");
         
         chests.add(new Chest(new Vector2(0, 2), "chest", "openchest"));
         chests.add(new Chest(new Vector2(10, 14), "chest", "openchest"));
