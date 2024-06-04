@@ -89,6 +89,7 @@ public class Board {
 
         int range = (int) Math.round(perception);
         for (int dx = -range; dx <= range; dx++) {
+             
             for (int dy = -range; dy <= range; dy++) {
                 int x = playerPosition.getX() + dx;
                 int y = playerPosition.getY() + dy;

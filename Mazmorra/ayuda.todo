@@ -35,14 +35,11 @@
 
 
 
-✘ Crear otro fxml @cancelled (6/4/2024, 9:23:19 AM)
 ✘ Crear la historia @low @cancelled (6/4/2024, 9:23:19 AM)
 ✘ Crear la interfaz de la historia @high @cancelled (6/4/2024, 9:23:23 AM)
 ✘ Crear generacion de terreno @critical @cancelled (6/4/2024, 9:23:21 AM)
 ✘ Logica puertas @low @cancelled (6/4/2024, 9:23:26 AM)
 ✘ implementar las puertas en el tablero @critical @cancelled (6/4/2024, 9:23:27 AM)
-✘ Clase de entorno para cofres y puertas y en general @cancelled (6/4/2024, 9:23:29 AM)
 ✘ Hacer algoritmo A* @high @cancelled (6/4/2024, 9:23:16 AM)
 ✘ Tablero por fichero @tag @cancelled (6/4/2024, 9:22:41 AM)
-✘ Mirar ultimo punto apuntes para implementar el tablero por ficheros @high @cancelled (6/4/2024, 9:01:57 AM)
 

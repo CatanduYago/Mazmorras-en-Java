@@ -56,14 +56,16 @@ public class GameManager {
             }
             if (enemy.getHealth() <= 0) {
                 enemies.remove(enemy);
+                if (enemies.isEmpty()) {
+                    App.getInstance().restartGame();
+                }
             }
         }
 
         for (Chest chest : chests) {
             if (areAdjacent(player.getPosition(), chest.getPosition())) {
                 chest.open(player);
-            }
-        }
+        }}
     }
 
     private boolean areAdjacent(Vector2 pos1, Vector2 pos2) {
@@ -101,8 +103,9 @@ public class GameManager {
             board.newCell(new Vector2(i, j), isFloor, isDoor);
         }
     }
-        player = new Player("portrait", "player", "Paladin", 25.0, 1.3, 0.0, 1.0, 1.0, 1.0, "dpickaxe", "item6",
+        player = new Player("portrait", "player2", "HunterHansolo", 25.0, 1.3, 0.0, 1.0, 1.0, 1.0, "dpickaxe", "item6",
                 new Vector2(4, 0), board);
+        player.setResistance(Skill.Type.CORTANTE,new Resistance(Resistance.Type.RESISTENTE));
         
         Weapon dpickaxe = new Weapon("dpickaxe", "El pico del Minecraft", 5.0, 2.0, Arrays.asList(new Skill(Skill.Type.CONTUNDENTE)));
         player.equipWeapon(dpickaxe);
