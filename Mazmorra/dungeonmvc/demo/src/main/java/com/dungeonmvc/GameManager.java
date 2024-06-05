@@ -14,6 +14,7 @@ public class GameManager {
     Player player;
     ArrayList<Enemy> enemies;
     ArrayList<Chest> chests;
+    Coward cowards;
     Board board;
 
     private GameManager() {
@@ -34,6 +35,10 @@ public class GameManager {
 
     public ArrayList<Enemy> getEnemies() {
         return this.enemies;
+    }
+
+    public Coward getCowards() {
+        return this.cowards;
     }
 
     public ArrayList<Chest> getChests() {
@@ -65,7 +70,19 @@ public class GameManager {
         for (Chest chest : chests) {
             if (areAdjacent(player.getPosition(), chest.getPosition())) {
                 chest.open(player);
-        }}
+            }
+        }
+        if (cowards.getHealth() > 0) {
+            cowards.moveAwayFromPlayer(player, cowards);
+            if (areAdjacent(cowards.getPosition(), player.getPosition())) {
+                cowards.receiveDamage(player.getAD());
+
+            }
+
+        } else {
+            notifyCowardDefeated(cowards);
+
+        }
     }
 
     private boolean areAdjacent(Vector2 pos1, Vector2 pos2) {
@@ -76,38 +93,41 @@ public class GameManager {
 
     public void testGame() {
         boolean[][] boardMatrix = {
-            { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
-            { true, false, false, false, true, false, false, false, false, false, false, false, false, false,
-                    true },
-            { true, false, true, false, true, false, true, true, true, true, true, true, false, true, true },
-            { true, false, true, false, true, false, false, false, false, false, false, false, false, false, true },
-            { true, false, true, false, true, false, true, true, true, true, true, true, false, true, true },
-            { true, false, false, false, true, false, false, false, false, false, false, false, false, false,
-                    true },
-            { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
-            { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
-            { true, false, false, false, true, false, false, false, false, false, false, false, false, false,
-                    true },
-            { true, false, true, false, true, false, true, true, true, true, true, true, false, true, true },
-            { true, false, true, false, true, false, false, false, false, false, false, false, false, false, true },
-            { true, false, true, false, true, false, true, true, true, true, true, true, false, true, true },
-            { true, false, false, false, true, false, false, false, false, false, false, false, false, false,true },
-            { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
-            { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true }
-    };
-    board = new Board(boardMatrix.length, "floor", "wall", "door");
-    for (int i = 0; i < boardMatrix.length; i++) {
-        for (int j = 0; j < boardMatrix[0].length; j++) {
-            boolean isFloor = boardMatrix[i][j];
-            boolean isDoor = (i == 1 && j == 4) || (i == 4 && j == 8);
-            board.newCell(new Vector2(i, j), isFloor, isDoor);
+                { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
+                { true, false, false, false, true, false, false, false, false, false, false, false, false, false,
+                        true },
+                { true, false, true, false, true, false, true, true, true, true, true, true, false, true, true },
+                { true, false, true, false, true, false, false, false, false, false, false, false, false, false, true },
+                { true, false, true, false, true, false, true, true, true, true, true, true, false, true, true },
+                { true, false, false, false, true, false, false, false, false, false, false, false, false, false,
+                        true },
+                { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
+                { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
+                { true, false, false, false, true, false, false, false, false, false, false, false, false, false,
+                        true },
+                { true, false, true, false, true, false, true, true, true, true, true, true, false, true, true },
+                { true, false, true, false, true, false, false, false, false, false, false, false, false, false, true },
+                { true, false, true, false, true, false, true, true, true, true, true, true, false, true, true },
+                { true, false, false, false, true, false, false, false, false, false, false, false, false, false,
+                        true },
+                { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
+                { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true }
+        };
+
+        board = new Board(boardMatrix.length, "floor", "wall", "door");
+        for (int i = 0; i < boardMatrix.length; i++) {
+            for (int j = 0; j < boardMatrix[0].length; j++) {
+                boolean isFloor = boardMatrix[i][j];
+                boolean isDoor = (i == 1 && j == 4) || (i == 4 && j == 8);
+                board.newCell(new Vector2(i, j), isFloor, isDoor);
+            }
         }
-    }
         player = new Player("portrait", "player", "HunterHansolo", 25.0, 1.3, 0.0, 1.0, 1.0, 1.0, "dpickaxe", "item6",
                 new Vector2(4, 0), board);
-        player.setResistance(Skill.Type.CORTANTE,new Resistance(Resistance.Type.RESISTENTE));
-        
-        Weapon dpickaxe = new Weapon("dpickaxe", "El pico del Minecraft", 5.0, 2.0, Arrays.asList(new Skill(Skill.Type.CONTUNDENTE)));
+        player.setResistance(Skill.Type.CORTANTE, new Resistance(Resistance.Type.RESISTENTE));
+
+        Weapon dpickaxe = new Weapon("dpickaxe", "El pico del Minecraft", 5.0, 2.0,
+                Arrays.asList(new Skill(Skill.Type.CONTUNDENTE)));
         player.equipWeapon(dpickaxe);
 
         Enemy rata1 = new Enemy("Roedor del Río", "rata", 10.0, 1.0, 0.0, 1.0, 1.0, new Vector2(0, 0), 3.0, board);
@@ -122,7 +142,6 @@ public class GameManager {
         rata3.setResistance(Skill.Type.CORTANTE, new Resistance(Resistance.Type.NEUTRAL));
         enemies.add(rata3);
 
-
         Enemy rata4 = new Enemy("Roedor del Río", "rata", 10.0, 1.0, 0.0, 1.0, 1.0, new Vector2(8, 4), 3.0, board);
         rata4.setResistance(Skill.Type.CORTANTE, new Resistance(Resistance.Type.INMUNE));
         enemies.add(rata4);
@@ -131,6 +150,8 @@ public class GameManager {
         rata5.setResistance(Skill.Type.CORTANTE, new Resistance(Resistance.Type.FRAGIL));
         enemies.add(rata5);
 
+        cowards = new Coward("Cobarde", "playerdead", 10.0, 1.0, 0.0, 1.0, 1.0, new Vector2(0, 10), 4.0, board);
+
         player.getInventory().addItem("coconut");
         player.getInventory().addItem("shit");
         player.getInventory().addItem("syringe");
@@ -138,11 +159,10 @@ public class GameManager {
         player.getInventory().addItem("item2");
         player.getInventory().addItem("item3");
         player.getInventory().addItem("dl44");
-        
+
         chests.add(new Chest(new Vector2(0, 2), "chest", "openchest"));
         chests.add(new Chest(new Vector2(10, 14), "chest", "openchest"));
 
-   
     }
 
     public void notifyEnemyDefeated(Enemy enemy) {
@@ -152,8 +172,13 @@ public class GameManager {
     public void notifyPlayerDefeated(Player player) {
         BoardViewController.getInstance().updatePlayerImage(player);
     }
+
     public void notifyChestOpened(Chest chest) {
         BoardViewController.getInstance().updateChestImage(chest);
+    }
+
+    public void notifyCowardDefeated(Coward coward) {
+        BoardViewController.getInstance().updateCowardImage(coward);
     }
 
     public void checkGameOver() {

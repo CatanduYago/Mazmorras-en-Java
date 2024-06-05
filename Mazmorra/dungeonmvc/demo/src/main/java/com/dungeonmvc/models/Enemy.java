@@ -21,7 +21,7 @@ public class Enemy extends Entities {
         this.board = board;
         this.random = new Random();
         this.isDead = false;
-                this.resistances = new HashMap<>();
+        this.resistances = new HashMap<>();
 
     }
 

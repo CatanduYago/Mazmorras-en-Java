@@ -43,7 +43,7 @@ public class MainViewController {
             FXMLLoader playerLoader = new FXMLLoader(App.class.getResource("playerView.fxml"));
             Pane playerView = playerLoader.load();
             playerPane.getChildren().add(playerView);
-
+            
         
            
 

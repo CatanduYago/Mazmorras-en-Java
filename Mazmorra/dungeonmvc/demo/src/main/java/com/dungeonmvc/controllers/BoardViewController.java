@@ -1,9 +1,11 @@
 package com.dungeonmvc.controllers;
+
 import com.dungeonmvc.App;
 import com.dungeonmvc.GameManager;
 import com.dungeonmvc.interfaces.Observer;
 import com.dungeonmvc.models.Board;
 import com.dungeonmvc.models.Chest;
+import com.dungeonmvc.models.Coward;
 import com.dungeonmvc.models.Entities;
 import com.dungeonmvc.models.Enemy;
 import com.dungeonmvc.models.Player;
@@ -28,7 +30,8 @@ public class BoardViewController implements Observer {
     private double boardSize;
 
     private HashMap<Entities, ImageView> entityImages;
- private HashMap<Chest, ImageView> chestImages;
+    private HashMap<Chest, ImageView> chestImages;
+    private HashMap<Coward, ImageView> cowardImages;
     private static BoardViewController instance;
 
     public BoardViewController() {
@@ -43,6 +46,7 @@ public class BoardViewController implements Observer {
     private void initialize() {
         System.out.println("Board controller loaded");
     }
+
     public void setUp() {
         board = GameManager.getInstance().getBoard();
         board.subscribe(this);
@@ -78,7 +82,8 @@ public class BoardViewController implements Observer {
         ImageView playerImg = new ImageView();
         playerImg.setFitWidth(cellSize);
         playerImg.setFitHeight(cellSize);
-        playerImg.setImage(new Image(App.class.getResource("images/" + player.getImage() + ".png").toExternalForm(), cellSize, cellSize, true, false));
+        playerImg.setImage(new Image(App.class.getResource("images/" + player.getImage() + ".png").toExternalForm(),
+                cellSize, cellSize, true, false));
         playerImg.setSmooth(false);
         pane.getChildren().add(playerImg);
         entityImages.put(player, playerImg);
@@ -87,18 +92,30 @@ public class BoardViewController implements Observer {
             ImageView enemyImg = new ImageView();
             enemyImg.setFitWidth(cellSize);
             enemyImg.setFitHeight(cellSize);
-            enemyImg.setImage(new Image(App.class.getResource("images/" + enemy.getImage() + ".png").toExternalForm(), cellSize, cellSize, true, false));
+            enemyImg.setImage(new Image(App.class.getResource("images/" + enemy.getImage() + ".png").toExternalForm(),
+                    cellSize, cellSize, true, false));
             enemyImg.setSmooth(false);
             pane.getChildren().add(enemyImg);
             entityImages.put(enemy, enemyImg);
         }
 
-         chestImages = new HashMap<>();
+        Coward coward = GameManager.getInstance().getCowards();
+        ImageView cowardImg = new ImageView();
+        cowardImg.setFitWidth(cellSize);
+        cowardImg.setFitHeight(cellSize);
+        cowardImg.setImage(new Image(App.class.getResource("images/" + coward.getImage() + ".png").toExternalForm(),
+                cellSize, cellSize, true, false));
+        cowardImg.setSmooth(false);
+        pane.getChildren().add(cowardImg);
+        entityImages.put(coward, cowardImg);
+
+        chestImages = new HashMap<>();
         for (Chest chest : GameManager.getInstance().getChests()) {
             ImageView chestImg = new ImageView();
             chestImg.setFitWidth(cellSize);
             chestImg.setFitHeight(cellSize);
-            chestImg.setImage(new Image(App.class.getResource("images/" + chest.getImage() + ".png").toExternalForm(), cellSize, cellSize, true, false));
+            chestImg.setImage(new Image(App.class.getResource("images/" + chest.getImage() + ".png").toExternalForm(),
+                    cellSize, cellSize, true, false));
             chestImg.setSmooth(false);
             pane.getChildren().add(chestImg);
             chestImages.put(chest, chestImg);
@@ -121,14 +138,23 @@ public class BoardViewController implements Observer {
             ImageView imgView = chestImages.get(chest);
             imgView.setLayoutX(newPos.getX());
             imgView.setLayoutY(newPos.getY());
-            imgView.setImage(new Image(App.class.getResource("images/" + chest.getImage() + ".png").toExternalForm(), cellSize, cellSize, true, false));
+            imgView.setImage(new Image(App.class.getResource("images/" + chest.getImage() + ".png").toExternalForm(),
+                    cellSize, cellSize, true, false));
         }
     }
 
     public void updateChestImage(Chest chest) {
         ImageView chestImg = chestImages.get(chest);
         if (chestImg != null) {
-            chestImg.setImage(new Image(App.class.getResource("images/openchest.png").toExternalForm(), cellSize, cellSize, true, false));
+            chestImg.setImage(new Image(App.class.getResource("images/openchest.png").toExternalForm(), cellSize,
+                    cellSize, true, false));
+        }
+    }
+    public void updateCowardImage(Coward coward) {
+        ImageView cowardImg = entityImages.get(coward);
+        if (cowardImg != null) {
+            cowardImg.setImage(new Image(App.class.getResource("images/shit.png").toExternalForm(), cellSize,
+                    cellSize, true, false));
         }
     }
 
@@ -137,9 +163,11 @@ public class BoardViewController implements Observer {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'onChange'");
     }
+
     private Vector2Double matrixToInterface(Vector2 coord) {
         return new Vector2Double(cellSize * coord.getX(), cellSize * coord.getY());
     }
+
     public void setBoardSize(double boardSize) {
         this.boardSize = boardSize;
     }
@@ -147,14 +175,16 @@ public class BoardViewController implements Observer {
     public void updateEnemyImage(Enemy enemy) {
         ImageView enemyImg = entityImages.get(enemy);
         if (enemyImg != null) {
-            enemyImg.setImage(new Image(App.class.getResource("images/deadrat.png").toExternalForm(), cellSize, cellSize, true, false));
+            enemyImg.setImage(new Image(App.class.getResource("images/deadrat.png").toExternalForm(), cellSize,
+                    cellSize, true, false));
         }
     }
 
     public void updatePlayerImage(Player player) {
         ImageView playerImg = entityImages.get(player);
         if (playerImg != null) {
-            playerImg.setImage(new Image(App.class.getResource("images/playerdead.png").toExternalForm(), cellSize, cellSize, true, false));
+            playerImg.setImage(new Image(App.class.getResource("images/playerdead.png").toExternalForm(), cellSize,
+                    cellSize, true, false));
         }
     }
 }

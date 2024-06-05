@@ -76,29 +76,7 @@ public class Board {
     public boolean isFloor(int x, int y) {
         return board[x][y].getIsFloor();
     }
-    public boolean isVisible(int row, int col) {
-        return visibility[row][col];
-    }
-
-    public void updateVisibility(Vector2 playerPosition, double perception) {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                visibility[i][j] = false;
-            }
-        }
-
-        int range = (int) Math.round(perception);
-        for (int dx = -range; dx <= range; dx++) {
-             
-            for (int dy = -range; dy <= range; dy++) {
-                int x = playerPosition.getX() + dx;
-                int y = playerPosition.getY() + dy;
-                if (x >= 0 && x < size && y >= 0 && y < size) {
-                    visibility[x][y] = true;
-                }
-            }
-        }
-    }
+    
     public ArrayList<Observer> getObservers() {
         return this.observers;
     }

@@ -155,6 +155,12 @@ public class Player extends Entities {
         }
     }
 
+    public void interact(Coward coward) {
+        if (this.getHealth() > 0) {
+            attackCoward(coward);
+        }
+    }
+
     public void equipWeapon(Weapon weapon) {
         this.equippedWeapon = weapon;
         System.out.println(this.getName() + " ha equipado " + weapon.getName());
@@ -182,6 +188,12 @@ public class Player extends Entities {
             enemy.receiveDamage(baseDamage);
             System.out.println(this.getName() + " ataca haciendo " + baseDamage + " de daño a " + enemy.getName());
         }
+    }
+
+    public void attackCoward(Coward coward) {
+        double damageDice = DiceRoll.roll(Dice.d6);
+        double baseDamage = this.getAD() + damageDice;
+        coward.receiveDamage(baseDamage);
     }
 
     public void receiveDamage(double damage) {
