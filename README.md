@@ -10,6 +10,3 @@ juego. Englobaremos todos los aspectos del desarrollo desde la planificación in
 Se necesitará descargar JavaFX y ejecutar el App.java.
 
 Tiene residuos de un intento de añadir el fog of war.
-
-
-# Guía del programador.
