@@ -12,7 +12,6 @@
 ✔ Hay que arreglar la interaccion entre enemigo y player. Recibe null en el getname de player @done (5/29/2024, 3:40:31 PM)
 ✔ Añadir más enemigos @done (5/29/2024, 10:28:19 PM)
 ✔ Implementar vid adaño y cosas en el hud del juego @done (5/29/2024, 10:28:23 PM)
-✔ Implementar BOss y su Herencia @low @done (5/16/2024, 5:19:19 PM)
 ✔ cambio de items del inventario ala mano @high @done (5/20/2024, 5:12:06 PM)
 ✔ Hacer sprite del enemigo @done (5/22/2024, 3:41:13 PM)
 ✔ Implementar enemigos en el tablero @critical @done (5/30/2024, 9:38:15 AM)
@@ -33,8 +32,7 @@
 ✔ Logica items consumibles @done (6/4/2024, 2:30:21 PM)
 ✘ Crear fog of war @critical @cancelled (6/5/2024, 5:18:38 PM)
 
-
-
+✘ Implementar BOss y su Herencia @low @cancelled (6/6/2024, 4:14:43 PM)
 ✘ Crear la historia @low @cancelled (6/4/2024, 9:23:19 AM)
 ✘ Crear la interfaz de la historia @high @cancelled (6/4/2024, 9:23:23 AM)
 ✘ Crear generacion de terreno @critical @cancelled (6/4/2024, 9:23:21 AM)
